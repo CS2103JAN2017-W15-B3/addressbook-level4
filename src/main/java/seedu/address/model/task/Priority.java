@@ -9,7 +9,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class Priority {
 
     public static final String MESSAGE_PRIORITY_CONSTRAINTS = "Task priority can take any values";
-    public static final String PRIORITY_VALIDATION_REGEX = ".*";
+    public static final String PRIORITY_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     public final String value;
 
