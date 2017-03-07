@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.task;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import seedu.address.model.task.Status;
 
-public class EmailTest {
+public class StatusTest {
 
     @Test
     public void isValidStatus() {
