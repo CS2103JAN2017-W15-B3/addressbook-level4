@@ -1,23 +1,21 @@
-package seedu.address.model.person;
+package seedu.address.model.task;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import seedu.address.model.task.Note;
-
-public class AddressTest {
+public class NoteTest {
 
     @Test
     public void isValidNote() {
-        // invalid addresses
+        // invalid notes
         assertFalse(Note.isValidNote("")); // empty string
         assertFalse(Note.isValidNote(" ")); // spaces only
 
-        // valid addresses
-        assertTrue(Note.isValidNote("Blk 456, Den Road, #01-355"));
+        // valid notes
+        assertTrue(Note.isValidNote("Idle task"));
         assertTrue(Note.isValidNote("-")); // one character
-        assertTrue(Note.isValidNote("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long address
+        assertTrue(Note.isValidNote("This is just a test to see if note can handle a long note")); // long note
     }
 }
