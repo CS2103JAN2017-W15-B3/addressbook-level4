@@ -15,7 +15,7 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 
 /**
- * Adds a task to the address book.
+ * Adds a task to the task manager.
  */
 public class AddCommand extends Command {
 
@@ -27,7 +27,7 @@ public class AddCommand extends Command {
             + " Finish assignment p/HIGH s/INCOMPLETE n/Due 30/02/2017 t/CS1234";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
 
     private final Task toAdd;
 
