@@ -25,8 +25,8 @@ public class EditCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the task identified "
             + "by the index number used in the last task listing. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) [NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS ] [t/TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 p/91234567 e/johndoe@yahoo.com";
+            + "Parameters: INDEX (must be a positive integer) [NAME] [p/PRIORITY] [n/NOTE] [s/STATUS] [t/TAG]...\n"
+            + "Example: " + COMMAND_WORD + " 1 p/mid s/complete";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -92,18 +92,18 @@ public class EditCommand extends Command {
      */
     public static class EditTaskDescriptor {
         private Optional<Name> name = Optional.empty();
-        private Optional<Priority> phone = Optional.empty();
-        private Optional<Status> email = Optional.empty();
-        private Optional<Note> address = Optional.empty();
+        private Optional<Priority> priority = Optional.empty();
+        private Optional<Status> status = Optional.empty();
+        private Optional<Note> note = Optional.empty();
         private Optional<UniqueTagList> tags = Optional.empty();
 
         public EditTaskDescriptor() {}
 
         public EditTaskDescriptor(EditTaskDescriptor toCopy) {
             this.name = toCopy.getName();
-            this.phone = toCopy.getPriority();
-            this.email = toCopy.getStatus();
-            this.address = toCopy.getNote();
+            this.priority = toCopy.getPriority();
+            this.status = toCopy.getStatus();
+            this.note = toCopy.getNote();
             this.tags = toCopy.getTags();
         }
 
@@ -111,7 +111,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyPresent(this.name, this.phone, this.email, this.address, this.tags);
+            return CollectionUtil.isAnyPresent(this.name, this.priority, this.status, this.note, this.tags);
         }
 
         public void setName(Optional<Name> name) {
@@ -123,31 +123,31 @@ public class EditCommand extends Command {
             return name;
         }
 
-        public void setPriority(Optional<Priority> phone) {
-            assert phone != null;
-            this.phone = phone;
+        public void setPriority(Optional<Priority> priority) {
+            assert priority != null;
+            this.priority = priority;
         }
 
         public Optional<Priority> getPriority() {
-            return phone;
+            return priority;
         }
 
-        public void setStatus(Optional<Status> email) {
-            assert email != null;
-            this.email = email;
+        public void setStatus(Optional<Status> status) {
+            assert status != null;
+            this.status = status;
         }
 
         public Optional<Status> getStatus() {
-            return email;
+            return status;
         }
 
-        public void setNote(Optional<Note> address) {
-            assert address != null;
-            this.address = address;
+        public void setNote(Optional<Note> note) {
+            assert note != null;
+            this.note = note;
         }
 
         public Optional<Note> getNote() {
-            return address;
+            return note;
         }
 
         public void setTags(Optional<UniqueTagList> tags) {
