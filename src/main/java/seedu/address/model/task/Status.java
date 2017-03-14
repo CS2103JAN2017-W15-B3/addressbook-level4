@@ -11,7 +11,7 @@ public class Status {
 
     public static final String MESSAGE_STATUS_CONSTRAINTS =
             "Status can take any values";
-    public static final String STATUS_VALIDATION_REGEX = "[^\\s].*";
+    public static final String STATUS_VALIDATION_REGEX = ".*";
 
     public final String value;
 

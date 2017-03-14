@@ -1,5 +1,10 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -23,7 +28,7 @@ public class ArgumentTokenizer {
 
     /** Arguments found after tokenizing **/
     private final Map<Prefix, List<String>> tokenizedArguments = new HashMap<>();
-
+    private List<PrefixPosition> positions;
     /**
      * Creates an ArgumentTokenizer that can tokenize arguments string as described by prefixes
      */
@@ -32,12 +37,37 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * @param argsString arguments string of the form: preamble <prefix>value <prefix>value ...
+     * @param argsString arguments string of the form: preamble <prefix>value <prefix>value ... for add command
      */
     public void tokenize(String argsString) {
         resetTokenizerState();
-        List<PrefixPosition> positions = findAllPrefixPositions(argsString);
+        positions = findAllPrefixPositions(argsString);
         extractArguments(argsString, positions);
+    }
+
+    /**
+     * Create a floating task according to parameters entered
+     */
+    public void createFloatingTask() {
+        List<Prefix> prefix = new ArrayList<>();
+        prefix.add(PREFIX_NOTE);
+        prefix.add(PREFIX_PRIORITY);
+        prefix.add(PREFIX_STATUS);
+        prefix.add(PREFIX_DEADLINE);
+
+        for (int i = 0; i < positions.size(); i++) {
+            prefix.remove(positions.get(i).getPrefix());
+        }
+
+        for (int i = 0; i < prefix.size(); i++) {
+            if (prefix.get(i).equals(PREFIX_PRIORITY)) {
+                saveArgument(prefix.get(i), "none");
+            } else if (prefix.get(i).equals(PREFIX_DEADLINE)) {
+                saveArgument(prefix.get(i), "31/12/2017");
+            } else {
+                saveArgument(prefix.get(i), "");
+            }
+        }
     }
 
     /**

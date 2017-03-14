@@ -27,6 +27,7 @@ public class AddCommandParser {
         ArgumentTokenizer argsTokenizer =
                 new ArgumentTokenizer(PREFIX_PRIORITY, PREFIX_STATUS, PREFIX_NOTE, PREFIX_DEADLINE, PREFIX_TAG);
         argsTokenizer.tokenize(args);
+        argsTokenizer.createFloatingTask();
         try {
             return new AddCommand(
                     argsTokenizer.getPreamble().get(),

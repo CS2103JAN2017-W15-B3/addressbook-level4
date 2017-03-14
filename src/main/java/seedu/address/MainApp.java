@@ -49,7 +49,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing Opus ]===========================");
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
@@ -79,14 +79,14 @@ public class MainApp extends Application {
         try {
             taskManagerOptional = storage.readTaskManager();
             if (!taskManagerOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+                logger.info("Data file not found. Will be starting with a sample Task Manager");
             }
             initialData = taskManagerOptional.orElseGet(SampleDataUtil::getSampleTaskManager);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            logger.warning("Data file not in the correct format. Will be starting with an empty Task Manager");
             initialData = new TaskManager();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Task Manager");
             initialData = new TaskManager();
         }
 
@@ -143,7 +143,7 @@ public class MainApp extends Application {
                     "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Task Manager");
             initializedPrefs = new UserPrefs();
         }
 
@@ -163,13 +163,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting Task Manager " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Opus ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);
