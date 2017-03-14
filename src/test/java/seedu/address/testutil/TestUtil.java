@@ -32,6 +32,7 @@ import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.TaskManager;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.Deadline;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Note;
 import seedu.address.model.task.Priority;
@@ -75,15 +76,15 @@ public class TestUtil {
         try {
             //CHECKSTYLE.OFF: LineLength
             return new Task[]{
-                new Task(new Name("Ali Muster"), new Priority("9482424"), new Status("hans@google.com"), new Note("4th street"), new UniqueTagList()),
-                new Task(new Name("Boris Mueller"), new Priority("87249245"), new Status("ruth@google.com"), new Note("81th street"), new UniqueTagList()),
-                new Task(new Name("Carl Kurz"), new Priority("95352563"), new Status("heinz@yahoo.com"), new Note("wall street"), new UniqueTagList()),
-                new Task(new Name("Daniel Meier"), new Priority("87652533"), new Status("cornelia@google.com"), new Note("10th street"), new UniqueTagList()),
-                new Task(new Name("Elle Meyer"), new Priority("9482224"), new Status("werner@gmail.com"), new Note("michegan ave"), new UniqueTagList()),
-                new Task(new Name("Fiona Kunz"), new Priority("9482427"), new Status("lydia@gmail.com"), new Note("little tokyo"), new UniqueTagList()),
-                new Task(new Name("George Best"), new Priority("9482442"), new Status("anna@google.com"), new Note("4th street"), new UniqueTagList()),
-                new Task(new Name("Hoon Meier"), new Priority("8482424"), new Status("stefan@mail.com"), new Note("little india"), new UniqueTagList()),
-                new Task(new Name("Ida Mueller"), new Priority("8482131"), new Status("hans@google.com"), new Note("chicago ave"), new UniqueTagList())
+                new Task(new Name("Ali Muster"), new Priority("hi"), new Status("hans@google.com"), new Note("4th street"), new Deadline("05/05/2017"), new UniqueTagList()),
+                new Task(new Name("Boris Mueller"), new Priority("mid"), new Status("ruth@google.com"), new Note("81th street"), new Deadline("06/05/2017"), new UniqueTagList()),
+                new Task(new Name("Carl Kurz"), new Priority("low"), new Status("heinz@yahoo.com"), new Note("wall street"), new Deadline("07/06/2017"), new UniqueTagList()),
+                new Task(new Name("Daniel Meier"), new Priority("mid"), new Status("cornelia@google.com"), new Note("10th street"), new Deadline("08/05/2017"), new UniqueTagList()),
+                new Task(new Name("Elle Meyer"), new Priority("hi"), new Status("werner@gmail.com"), new Note("michegan ave"), new Deadline("08/05/2017"), new UniqueTagList()),
+                new Task(new Name("Fiona Kunz"), new Priority("mid"), new Status("lydia@gmail.com"), new Note("little tokyo"), new Deadline("12/05/2017"), new UniqueTagList()),
+                new Task(new Name("George Best"), new Priority("low"), new Status("anna@google.com"), new Note("4th street"), new Deadline("12/05/2017"), new UniqueTagList()),
+                new Task(new Name("Hoon Meier"), new Priority("mid"), new Status("stefan@mail.com"), new Note("little india"), new Deadline("12/06/2017"), new UniqueTagList()),
+                new Task(new Name("Ida Mueller"), new Priority("hi"), new Status("hans@google.com"), new Note("chicago ave"), new Deadline("12/06/2017"), new UniqueTagList())
             };
             //CHECKSTYLE.ON: LineLength
         } catch (IllegalValueException e) {

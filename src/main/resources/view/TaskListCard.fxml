@@ -39,6 +39,7 @@
                         <Label fx:id="priority" styleClass="cell_small_label" text="\$priority" />
                         <Label fx:id="note" styleClass="cell_small_label" text="\$note" />
                         <Label fx:id="status" styleClass="cell_small_label" text="\$status" />
+                        <Label fx:id="deadline" styleClass="cell_small_label" text="\$deadline" />
                     </children>
                 </VBox>
             </children>

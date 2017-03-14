@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.Deadline;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Note;
 import seedu.address.model.task.Priority;
@@ -28,6 +29,8 @@ public class XmlAdaptedTask {
     private String status;
     @XmlElement(required = true)
     private String note;
+    @XmlElement(required = true)
+    private String deadline;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -46,9 +49,10 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
-        priority = source.getPriority().value;
+        priority = source.getPriority().value.toString();
         status = source.getStatus().value;
         note = source.getNote().value;
+        deadline = source.getDeadline().toString();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -66,10 +70,11 @@ public class XmlAdaptedTask {
             taskTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
-        final Priority priority = new Priority(this.priority);
+        final Priority priority = new Priority(Priority.parseXmlString(this.priority));
         final Status status = new Status(this.status);
         final Note note = new Note(this.note);
+        final Deadline deadline = new Deadline(this.deadline);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, priority, status, note, tags);
+        return new Task(name, priority, status, note, deadline, tags);
     }
 }

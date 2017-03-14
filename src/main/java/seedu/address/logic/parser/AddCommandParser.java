@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
@@ -24,7 +25,7 @@ public class AddCommandParser {
      */
     public Command parse(String args) {
         ArgumentTokenizer argsTokenizer =
-                new ArgumentTokenizer(PREFIX_PRIORITY, PREFIX_STATUS, PREFIX_NOTE, PREFIX_TAG);
+                new ArgumentTokenizer(PREFIX_PRIORITY, PREFIX_STATUS, PREFIX_NOTE, PREFIX_DEADLINE, PREFIX_TAG);
         argsTokenizer.tokenize(args);
         try {
             return new AddCommand(
@@ -32,6 +33,7 @@ public class AddCommandParser {
                     argsTokenizer.getValue(PREFIX_PRIORITY).get(),
                     argsTokenizer.getValue(PREFIX_STATUS).get(),
                     argsTokenizer.getValue(PREFIX_NOTE).get(),
+                    argsTokenizer.getValue(PREFIX_DEADLINE).get(),
                     ParserUtil.toSet(argsTokenizer.getAllValues(PREFIX_TAG))
             );
         } catch (NoSuchElementException nsee) {

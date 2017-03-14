@@ -7,6 +7,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.Deadline;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Note;
 import seedu.address.model.task.Priority;
@@ -24,7 +25,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. "
             + "Parameters: NAME p/PRIORITY s/STATUS n/NOTES  [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " Finish assignment p/HIGH s/INCOMPLETE n/Due 30/02/2017 t/CS1234";
+            + " Finish assignment p/HIGH s/INCOMPLETE n/Due 30/02/2017 d/30/02/2017 t/CS1234";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
@@ -36,7 +37,7 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String priority, String status, String note, Set<String> tags)
+    public AddCommand(String name, String priority, String status, String note, String deadline, Set<String> tags)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -47,6 +48,7 @@ public class AddCommand extends Command {
                 new Priority(priority),
                 new Status(status),
                 new Note(note),
+                new Deadline(deadline),
                 new UniqueTagList(tagSet)
         );
     }

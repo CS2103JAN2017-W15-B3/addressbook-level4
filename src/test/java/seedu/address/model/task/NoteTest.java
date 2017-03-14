@@ -21,6 +21,6 @@ public class NoteTest {
         assertTrue(Note.isValidNote("Individually, review the sample user guides (on IVLE) using the "
                                     + "User Guide checklist in CA 3: User Guide and Developer Guide. In "
                                     + "your project team, discuss your findings with each other. Be ready "
-                                    + "to share your team’s discussion with the class.")); // very long note
+                                    + "to share your team's discussion with the class.")); // very long note
     }
 }

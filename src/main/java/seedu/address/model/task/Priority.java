@@ -3,20 +3,30 @@ package seedu.address.model.task;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's priority in the task manager.
- * Guarantees: immutable; is valid as declared in {@link #isValidPriority(String)}
+ * Represents a Task's priority in the task manager. Guarantees: immutable; is
+ * valid as declared in {@link #isValidPriority(String)}
  */
 public class Priority {
 
-    public static final String MESSAGE_PRIORITY_CONSTRAINTS = "Task priority can take any values";
-    public static final String PRIORITY_VALIDATION_REGEX = "[^\\s].*";
+    public static enum Type {
+        NONE, HIGH, MEDIUM, LOW;
+    }
 
-    public final String value;
+    public static final String MESSAGE_PRIORITY_CONSTRAINTS = "Task priority can only take specific string "
+            + "values hi, mid, low, none.";
+    public static final String PRIORITY_VALIDATION_REGEX = "[^\\s].*";
+    public static final String PRIORITY_HIGH = "hi";
+    public static final String PRIORITY_MEDIUM = "mid";
+    public static final String PRIORITY_LOW = "low";
+    public static final String PRIORITY_NONE = "none";
+
+    public final Type value;
 
     /**
      * Validates given priority.
      *
-     * @throws IllegalValueException if given priority is invalid.
+     * @throws IllegalValueException
+     *             if given priority is invalid.
      */
     public Priority(String priority) throws IllegalValueException {
         assert priority != null;
@@ -24,31 +34,108 @@ public class Priority {
         if (!isValidPriority(trimmedPriority)) {
             throw new IllegalValueException(MESSAGE_PRIORITY_CONSTRAINTS);
         }
-        this.value = trimmedPriority;
+        this.value = parseUserInputString(trimmedPriority);
+    }
+
+    public Priority(Priority.Type priority) {
+        assert priority != null;
+        this.value = priority;
     }
 
     /**
-     * Returns true if a given string is a valid priority.
+     * Initialise a Priority with Type value of Type.NONE
+     */
+    public Priority() {
+        this.value = Type.NONE;
+    }
+
+    /**
+     * parse a string priority into Priority.Type.
+     *
+     * @param priority
+     * @return Priority.Type value
+     * @throws IllegalValueException
+     */
+    public static Priority.Type parseUserInputString(String priority) throws IllegalValueException {
+        assert priority != null;
+        switch (priority.toLowerCase()) {
+        case PRIORITY_NONE:
+            return Type.NONE;
+        case PRIORITY_HIGH:
+            return Type.HIGH;
+        case PRIORITY_MEDIUM:
+            return Type.MEDIUM;
+        case PRIORITY_LOW:
+            return Type.LOW;
+        default:
+            throw new IllegalValueException(MESSAGE_PRIORITY_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * parse a priority into user input string
+     *
+     * @param priority
+     * @return null if invalid
+     */
+    public static String toUserInputString(Type priority) {
+        assert priority != null;
+        switch (priority) {
+        case NONE:
+            return PRIORITY_NONE;
+        case HIGH:
+            return PRIORITY_HIGH;
+        case MEDIUM:
+            return PRIORITY_MEDIUM;
+        case LOW:
+            return PRIORITY_LOW;
+        default:
+            throw new AssertionError();
+        }
+    }
+
+    public static Priority.Type parseXmlString(String priority) throws IllegalValueException {
+        assert priority != null;
+        try {
+            return Type.valueOf(priority);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalValueException(MESSAGE_PRIORITY_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * Returns true if a given string is a valid input.
      */
     public static boolean isValidPriority(String test) {
-        return test.matches(PRIORITY_VALIDATION_REGEX);
+        switch (test.toLowerCase()) {
+        case PRIORITY_NONE:
+            return true;
+        case PRIORITY_HIGH:
+            return true;
+        case PRIORITY_MEDIUM:
+            return true;
+        case PRIORITY_LOW:
+            return true;
+        default:
+            return false;
+        }
     }
 
     @Override
     public String toString() {
-        return value;
+        return value.toString();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Priority // instanceof handles nulls
-                && this.value.equals(((Priority) other).value)); // state check
+                        && this.value.equals(((Priority) other).value)); // state
+                                                                         // check
     }
 
     @Override
     public int hashCode() {
         return value.hashCode();
     }
-
 }

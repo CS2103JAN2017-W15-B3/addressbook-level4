@@ -24,15 +24,18 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label status;
     @FXML
+    private Label deadline;
+    @FXML
     private FlowPane tags;
 
     public TaskCard(ReadOnlyTask task, int displayedIndex) {
         super(FXML);
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
-        priority.setText(task.getPriority().value);
+        priority.setText(task.getPriority().value.toString());
         note.setText(task.getNote().value);
         status.setText(task.getStatus().value);
+        deadline.setText(task.getDeadline().toString());
         initTags(task);
     }
 

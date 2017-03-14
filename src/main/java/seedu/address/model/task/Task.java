@@ -15,18 +15,20 @@ public class Task implements ReadOnlyTask {
     private Priority priority;
     private Status status;
     private Note note;
+    private Deadline deadline;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Priority priority, Status status, Note note, UniqueTagList tags) {
+    public Task(Name name, Priority priority, Status status, Note note, Deadline deadline, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, priority, status, note, tags);
         this.name = name;
         this.priority = priority;
         this.status = status;
         this.note = note;
+        this.deadline = deadline;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -34,7 +36,8 @@ public class Task implements ReadOnlyTask {
      * Creates a copy of the given ReadOnlyTask.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getPriority(), source.getStatus(), source.getNote(), source.getTags());
+        this(source.getName(), source.getPriority(), source.getStatus(),
+                source.getNote(), source.getDeadline(), source.getTags());
     }
 
     public void setName(Name name) {
@@ -78,6 +81,15 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
+    public Deadline getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(Deadline deadline) {
+        this.deadline = deadline;
+    }
+
+    @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
@@ -99,6 +111,7 @@ public class Task implements ReadOnlyTask {
         this.setPriority(replacement.getPriority());
         this.setStatus(replacement.getStatus());
         this.setNote(replacement.getNote());
+        this.setDeadline(replacement.getDeadline());
         this.setTags(replacement.getTags());
     }
 
