@@ -460,9 +460,18 @@ public class LogicManagerTest {
 
             cmd.append(p.getName().toString());
             cmd.append(" s/").append(p.getStatus());
-            cmd.append(" p/").append(Priority.toUserInputString(p.getPriority().value));
-            cmd.append(" n/").append(p.getNote());
-            cmd.append(" d/").append(p.getDeadline().toString());
+
+            if (p.getPriority().isPresent()) {
+                cmd.append(" p/").append(p.getPriority().get().toString());
+            }
+
+            if (p.getNote().isPresent()) {
+                cmd.append(" n/").append(p.getNote().get().toString());
+            }
+
+            if (p.getDeadline().isPresent()) {
+                cmd.append(" d/").append(p.getDeadline().get().toString());
+            }
 
             UniqueTagList tags = p.getTags();
             for (Tag t: tags) {

@@ -1,6 +1,7 @@
 package seedu.address.model.task;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
@@ -23,7 +24,11 @@ public class Task implements ReadOnlyTask {
      * Every field must be present and not null.
      */
     public Task(Name name, Priority priority, Status status, Note note, Deadline deadline, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, priority, status, note, tags);
+        // Name should never be null because it is required for each task.
+        // Status should never be null because every created task should be marked as incomplete.
+        // Tags should never be null because zero tags is represented as an empty list.
+        assert !CollectionUtil.isAnyNull(name, status, tags);
+
         this.name = name;
         this.priority = priority;
         this.status = status;
@@ -36,8 +41,8 @@ public class Task implements ReadOnlyTask {
      * Creates a copy of the given ReadOnlyTask.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getPriority(), source.getStatus(),
-                source.getNote(), source.getDeadline(), source.getTags());
+        this(source.getName(), source.getPriority().orElse(null), source.getStatus(),
+                source.getNote().orElse(null), source.getDeadline().orElse(null), source.getTags());
     }
 
     public void setName(Name name) {
@@ -56,8 +61,8 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Priority getPriority() {
-        return priority;
+    public Optional<Priority> getPriority() {
+        return Optional.of(priority);
     }
 
     public void setStatus(Status status) {
@@ -76,13 +81,13 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Note getNote() {
-        return note;
+    public Optional<Note> getNote() {
+        return Optional.of(note);
     }
 
     @Override
-    public Deadline getDeadline() {
-        return deadline;
+    public Optional<Deadline> getDeadline() {
+        return Optional.of(deadline);
     }
 
     public void setDeadline(Deadline deadline) {
@@ -108,10 +113,10 @@ public class Task implements ReadOnlyTask {
         assert replacement != null;
 
         this.setName(replacement.getName());
-        this.setPriority(replacement.getPriority());
+        this.setPriority(replacement.getPriority().orElse(null));
         this.setStatus(replacement.getStatus());
-        this.setNote(replacement.getNote());
-        this.setDeadline(replacement.getDeadline());
+        this.setNote(replacement.getNote().orElse(null));
+        this.setDeadline(replacement.getDeadline().orElse(null));
         this.setTags(replacement.getTags());
     }
 

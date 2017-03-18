@@ -80,10 +80,21 @@ public class EditCommand extends Command {
         assert taskToEdit != null;
 
         Name updatedName = editTaskDescriptor.getName().orElseGet(taskToEdit::getName);
-        Priority updatedPriority = editTaskDescriptor.getPriority().orElseGet(taskToEdit::getPriority);
+        Priority updatedPriority = editTaskDescriptor
+                .getPriority()
+                .map(Optional::of)
+                .orElseGet(taskToEdit::getPriority)
+                .orElse(null);
         Status updatedStatus = editTaskDescriptor.getStatus().orElseGet(taskToEdit::getStatus);
-        Note updatedNote = editTaskDescriptor.getNote().orElseGet(taskToEdit::getNote);
-        Deadline updatedDeadline = editTaskDescriptor.getDeadline().orElseGet(taskToEdit::getDeadline);
+        Note updatedNote = editTaskDescriptor.getNote()
+                .map(Optional::of)
+                .orElseGet(taskToEdit::getNote)
+                .orElse(null);
+        Deadline updatedDeadline = editTaskDescriptor
+                .getDeadline()
+                .map(Optional::of)
+                .orElseGet(taskToEdit::getDeadline)
+                .orElse(null);
         UniqueTagList updatedTags = editTaskDescriptor.getTags().orElseGet(taskToEdit::getTags);
 
         return new Task(updatedName, updatedPriority, updatedStatus, updatedNote, updatedDeadline, updatedTags);

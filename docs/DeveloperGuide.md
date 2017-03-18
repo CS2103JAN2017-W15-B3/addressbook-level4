@@ -1,77 +1,102 @@
 # Opus - Developer Guide
 
-By : `Team SE-EDU`  &nbsp;&nbsp;&nbsp;&nbsp; Since: `Jun 2016`  &nbsp;&nbsp;&nbsp;&nbsp; Licence: `MIT`
+By : `Team W15-B3`  &nbsp;&nbsp;&nbsp;&nbsp; Since: `Mar 2017`  &nbsp;&nbsp;&nbsp;&nbsp; Licence: `MIT`
 
 ---
 
-1. [Setting Up](#setting-up)
-2. [Design](#design)
-3. [Implementation](#implementation)
-4. [Testing](#testing)
-5. [Dev Ops](#dev-ops)
+1. [Setting Up](#1-setting-up)
+2. [Design](#2-design)
+3. [Implementation](#3-implementation)
+4. [Code Quality and Testing](#4-code-quality-and-testing)
+5. [Dev Ops](#5-dev-ops)
 
-* [Appendix A: User Stories](#appendix-a--user-stories)
-* [Appendix B: Use Cases](#appendix-b--use-cases)
-* [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
-* [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e--product-survey)
+* [Appendix A: Non Functional Requirements](#appendix-a--non-functional-requirements)
+* [Appendix B: Glossary](#appendix-b--glossary)
+* [Appendix C : Product Survey](#appendix-c--product-survey)
 
+---
 
 ## 1. Setting up
 
 ### 1.1. Prerequisites
 
-1. **JDK `1.8.0_60`**  or later<br>
+1. **JDK 1.8.0_60 or later**.
+    > JDK version `1.8.0_60` or later is required to run the project correctly
+2. **Eclipse IDE Neon**. 
+    >Follow the instructions [here](https://www.eclipse.org/downloads/eclipse-packages/?show_instructions=TRUE) to download and install Eclipse.
+3. **e(fx)clipse plugin for Eclipse**. 
+    >Follow the instructions [here](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious) to set up e(fx)clipse for Eclipse
+4. **Buildship Gradle Integration**.
+    >Buildship is bundled together with Eclipse Neon and above.
+5. **Checkstyle Plug-in**.
 
-    > Having any Java 8 version is not enough. <br>
-    This app will not work with earlier versions of Java 8.
+### 1.2. Installing Checkstyle manually
+    As of August 16, 2017, the Checkstyle repository in Eclipse Marketplace is unavailable. 
 
-2. **Eclipse** IDE
-3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
-   [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
-4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
-5. **Checkstyle Plug-in** plugin from the Eclipse Marketplace
+1. Download the compressed .zip file [here](https://sourceforge.net/projects/eclipse-cs/?source=typ_redirect). **Do not** extract the contents.
+2. Launch Eclipse Neon.
+3. Click `Help` > `Install new Software...`.
+<br><img src="images/checkstyle/checkstyle_1.png" width="400"><br><br>
+4. Click `Add..`.
+<br><img src="images/checkstyle/checkstyle_2.png" width="400"><br><br>
+5. Click `Archive` to open up a directory window.
+<br><img src="images/checkstyle/checkstyle_3.png" width="400"><br><br>
+6. Nagivate and select the **uncompressed** download file. Click `Open` > `OK`.
+<br><img src="images/checkstyle/checkstyle_4.png" width="400"><br><br>
+7. Check `Checkstyle` and click `Next`.
+<br><img src="images/checkstyle/checkstyle_5.png" width="400"><br><br>
+8. Click `Next` and accept the user license agreement as follows. 
+<br><img src="images/checkstyle/checkstyle_6.png" width="400"><br><br>
+9. Click `Finish` to install Checkstyle.
+<br><img src="images/checkstyle/checkstyle_7.png" width="400"><br><br>
 
+### 1.3. Importing the project through Gradle
 
-### 1.2. Importing the project into Eclipse
-
-0. Fork this repo, and clone the fork to your computer
-1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given
-   in the prerequisites above)
-2. Click `File` > `Import`
-3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
-4. Click `Browse`, then locate the project's directory
-5. Click `Finish`
-
+1. Clone this repository through this [link](https://github.com/CS2103JAN2017-W15-B3/main.git).
+2. Launch Eclipse.
+    >Ensure you have installed the **e(fx)clipse** and **buildship** plugins per the prerequisites above.
+3. Click `File` > `Import`.
+4. Click `Gradle` > `Gradle Project` and then `Next`.
+<br><img src="images/gradle/gradle_2.png" width="400"><br><br>
+5. Click `Next` in the Gradle Import Wizard.
+<br><img src="images/gradle/gradle_3.png" width="400"><br><br>
+6. Click `Browse` and nagivate to the directory of the cloned repository. Click `Finish` to begin importing the project.
+<br><img src="images/gradle/gradle_4.png" width="400"><br><br>
+   > * Gradle will begin importing and building the project. This process may take up 15 minutes depending on the internet connection speed.
+   > <br><img src="images/gradle/gradle_5.png" width="400"><br><br>
+   > * Upon completion, locate the Gradle Tasks menu at the lower section of Eclipse Neon.
+   > <br><img src="images/gradle/gradle_6.png" width="400"><br>
+7. Open the project menu and select `build` > `build` to build and test the project.
+<br><img src="images/gradle/gradle_7.png" width="400"><br><br>
+8. Check that the project has builded successfully in the Console view.
+<br><img src="images/gradle/gradle_8.png" width="400"><br><br>
+More information about using Gradle can be found [here](https://github.com/CS2103JAN2017-W15-B3/main/blob/docs-settingup/docs/UsingGradle.md).
   > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
   > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process)
-  > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
+  > * If any settings files are changed by Eclipse during the import process, you can discard those changes.
 
-### 1.3. Configuring Checkstyle
-1. Click `Project` -> `Properties` -> `Checkstyle` -> `Local Check Configurations` -> `New...`
-2. Choose `External Configuration File` under `Type`
-3. Enter an arbitrary configuration name e.g. opus
-4. Import checkstyle configuration file found at `config/checkstyle/checkstyle.xml`
+
+### 1.4. Configuring Checkstyle
+1. Click `Project` -> `Properties` -> `Checkstyle` -> `Local Check Configurations` -> `New...`.
+2. Choose `External Configuration File` under `Type`.
+3. Enter an arbitrary configuration name e.g. opus.
+4. Import checkstyle configuration file found at `config/checkstyle/checkstyle.xml`.
 5. Click OK once, go to the `Main` tab, use the newly imported check configuration.
-6. Tick and select `files from packages`, click `Change...`, and select the `resources` package
-7. Click OK twice. Rebuild project if prompted
+6. Check and select `files from packages`, click `Change...`, and select the `resource`.
+7. Click OK twice. Rebuild project as required.
+    
+    Click on the `files from packages` text after ticking in order to enable the `Change...` button
 
-> Note to click on the `files from packages` text after ticking in order to enable the `Change...` button
+### 1.5. Troubleshooting project setup
 
-### 1.4. Troubleshooting project setup
+#### 1.5.1.  Eclipse reports compile errors after merging new commits pulled from Git.
+    This is because Eclipse failed to recognize the new files that are pulled from Git.
+1. Right click on the project (in Eclipse package explorer) and choose `Gradle` > `Refresh Gradle Project`.
 
-**Problem: Eclipse reports compile errors after new commits are pulled from Git**
-
-* Reason: Eclipse fails to recognize new files that appeared due to the Git pull.
-* Solution: Refresh the project in Eclipse:<br>
-  Right click on the project (in Eclipse package explorer), choose `Gradle` -> `Refresh Gradle Project`.
-
-**Problem: Eclipse reports some required libraries missing**
-
-* Reason: Required libraries may not have been downloaded during the project import.
-* Solution: [Run tests using Gradle](UsingGradle.md) once (to refresh the libraries).
-
+#### 1.5.2.  Eclipse reports missing libraries.
+    Eclipse has failed to retrieve all required dependencies during the project import.
+1. Right click on the project and select `Gradle` > `Run tests using Gradle`.
 
 ## 2. Design
 
@@ -86,26 +111,34 @@ Given below is a quick overview of each component.
 > Tip: The `.pptx` files used to create diagrams in this document can be found in the [diagrams](diagrams/) folder.
 > To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
+#### Main
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
 
+#### Commons
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play important roles at the architecture level.
 
 * `EventsCenter` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
   is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* `LogsCenter` : Used by many classes to write log messages to the App's log file for debugging and communication between developers.
 
-The rest of the App consists of four components.
+#### User Interface (UI)
+The [**`UI`**](#ui-component) represents graphical views and handles interactions between the user and the program such as display the task lists. 
 
-* [**`UI`**](#ui-component) : The UI of the App.
-* [**`Logic`**](#logic-component) : The command executor.
-* [**`Model`**](#model-component) : Holds the data of the App in-memory.
-* [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
+#### Logic
+The [**`Logic`**](#logic-component) accepts commands sent from the user pass it to the model to process.
 
-Each of the four components
+#### Model
+The [**`Model`**](#model-component) holds the data of the App in-memory and manage and update it accordingly to the commands received.
+
+#### Storage
+The [**`Storage`**](#storage-component) Reads data from, and writes data to, the hard disk.
+
+Each of the four components, [**`UI`**](#ui-component), [**`Logic`**](#logic-component), 
+[**`Model`**](#model-component) and [**`Storage`**](#storage-component)
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
@@ -115,20 +148,21 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
 _Figure 2.1.2 : Class Diagram of the Logic Component_
 
-#### Events-Driven nature of the design
+#### Events-Driven Architecture
 
+Event-driven architecture (EDA) consists of event emitters and receivers that allow loosely coupled components to communicate each other. The affected components react only when they receive events and process accordingly.
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 1`.
 
-<img src="images\SDforDeletePerson.png" width="800"><br>
+<img src="images/SDforDeleteTask.png" width="800"><br>
 _Figure 2.1.3a : Component interactions for `delete 1` command (part 1)_
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the TaskManager data are changed,
+>Note how the `Model` simply raises a `TaskManagerChangedEvent` when the TaskManager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\SDforDeletePersonEventHandling.png" width="800"><br>
+<img src="images/SDforDeleteTaskEventHandling.png" width="800"><br>
 _Figure 2.1.3b : Component interactions for `delete 1` command (part 2)_
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
@@ -139,16 +173,31 @@ The sections below give more details of each component.
 
 ### 2.2. UI component
 
-Author: Alice Bee
+Author: [Xu Bili](http://github.com/xbili)
+
+The `UI` component allows users to enter commands and receive the results through its graphical interfaces. It is responsible to handle the user interactions and ensure the commands are passed to `Logic` correctly.
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 _Figure 2.2.1 : Structure of the UI Component_
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` consists of multiple parts e.g.`CommandBox`, `ResultDisplay`, `TodayTaskListPanel`,
+`WeekTaskListPanel`, `FloatingTaskListPanel`,`StatusBarFooter` etc.
+All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
+The `CommandBox` allows users to enter the commands which will later be executed in `Logic`.
+
+The `ResultDisplay` panel shows the feedback of the commands.
+
+The `TodayTaskListPanel` shows all incomplete tasks that are due today and completed tasks that have been done today.
+
+The `WeekTaskListPanel` shows all incomplete tasks that are due within a week.
+
+The `FloatingTaskListPanel` shows all the incomplete tasks that do not have deadlines.
+
+The `StatusBarFooter` shows when the app has been last updated and storage file path.
+ 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
  For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
@@ -162,7 +211,11 @@ The `UI` component,
 
 ### 2.3. Logic component
 
-Author: Bernard Choo
+Author: [Lam Guang Jun](http://github.com/gjlam95)
+
+The `Logic` component process all the business logic and incoming requests. 
+It manipulates data based on the `Model` component and communicates with the `UI` component
+to display the final output.
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 _Figure 2.3.1 : Structure of the Logic Component_
@@ -179,36 +232,41 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
 _Figure 2.3.1 : Interactions Inside the Logic Component for the `delete 1` Command_
 
+In this diagram, the `Logic Manager` receives an event to delete the task at index 1 and parses into a `DeleteCommand` that communicates with the Model to perform the deletion. The result is pass back to the `UI` component through `CommandResult`.
+
 ### 2.4. Model component
 
-Author: Cynthia Dharman
+Author: [Han Lynn](http://github.com/hlynn93)
+
+The `Model` component handles the data related logic and defines the structure of the data. It reacts to the `Logic` requests and changes its and its attributes' states accordingly.
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 _Figure 2.4.1 : Structure of the Model Component_
 
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
-The `Model`,
+The `Model` component does not depends on other three components and consists of three main objects: `Task`, `Tag` and `UserPref`.
+* The `UserPref` object represents the user's preferences.
+* The `Task` object stores the attributes of task which consist of `Name`, `Priority`, `Status`, `Note`, `StartTime` and `EndTime`. It is also linked to the `Tag` object that categorises the existing tasks.
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Task Manager data.
-* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
-  so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+The `Model` component exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 
 ### 2.5. Storage component
 
-Author: Darius Foong
+Author: [Shi Yanzhang](http://github.com/mynameisyz)
+
+The `Storage` component reads and writes component state information to the storage files in the hard disk.
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
 _Figure 2.5.1 : Structure of the Storage Component_
 
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
-The `Storage` component,
+The `Storage` component listens the `TaskManagerChangedEvent` and 
+whenever there is a change to the task manager data, the component updates the storage files accordingly. It
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Task Manager data in xml format and read it back.
+* saves `UserPref` objects in json format and read it back.
+* saves the Task Manager data in xml format and read it back.
 
 ### 2.6. Common classes
 
@@ -241,11 +299,21 @@ Certain properties of the application can be controlled (e.g App name, logging l
 (default: `config.json`):
 
 
-## 4. Testing
+## 4. Code Quality and Testing
+
+### 4.1. Code Quality
+
+In Opus, we asipre to attain high quality coding standards by applying the principles of defensive programming. Defensive prgramming principles and techniques enable the developer to handle unexpected situations that may cause a program or a routine to stop working. Some examples of defensive coding are:
+* Using assertions to check validity of arguments before passing them into functions.
+* Throwing Excpetions when encountering unexpected events.
+* Enforcing 1-to-1 associations
+A good write up on defensive programming can be found [here](http://www.comp.nus.edu.sg/~cs2103/AY1617S2/files/handouts/%5bL7P2%5d%20Putting%20up%20defenses%20to%20protect%20our%20code.pdf) 
+
+### 4.2. Testing
 
 Tests can be found in the `./src/test/java` folder.
 
-**In Eclipse**:
+**Using JUnit test in Eclipse**:
 
 * To run all tests, right-click on the `src/test/java` folder and choose
   `Run as` > `JUnit Test`
@@ -277,22 +345,37 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  In the headless mode, GUI tests do not show up on the screen.
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
+ 
+### 4.3. Improving test coverage using Coveralls
+>Coveralls is a code analytic tool that tracks and analyses test coverage of a project. We have integrated Coveralls into our project to keep track and improve upon the test coverage of the code to deliver a robust and throughly-tested product. 
+ 
+ The Coveralls dashboard can be accessed [here](https://coveralls.io/github/CS2103JAN2017-W15-B3/main?branch=master). 
+ <br><img src="images/coveralls/coveralls_1.png" width="600"><br>
+ 
+ Upon every pull request, Coveralls will run an analysis of the pushed code and produce a report. To view the coverage report, nagivate the to pull request in Github.
 
-### 4.1. Troubleshooting tests
+ 1. Click on the Coveralls badge in the pull request to open the coverage report as follows:
+ <br><img src="images/coveralls/coveralls_2.png" width="600"><br><br>
+ 2. Scroll the report and select any file to view detailed analysis of the code.
+ <br><img src="images/coveralls/coveralls_3.png" width="600"><br><br>
+ Lines that are highlighted in red indicate that there is no test coverage for the code branch.
+ <br><img src="images/coveralls/coveralls_4.png" width="600"><br><br>
+ 
+    To maintain the code quality of the product, we strongly insist that all possible code branches are well covered with test cases.
 
- **Problem: Tests fail because NullPointException when AssertionError is expected**
+### 4.4. Troubleshooting tests
 
- * Reason: Assertions are not enabled for JUnit tests.
-   This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)
- * Solution: Enable assertions in JUnit tests as described
+#### 4.4.1. Tests fail because NullPointException when AssertionError is expected**
+    This is because Assertions are not enabled for JUnit tests.
+1. Enable assertions in JUnit tests as described
    [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
-   Delete run configurations created when you ran tests earlier.
+2. Delete run configurations created when you ran tests earlier.
 
 ## 5. Dev Ops
 
 ### 5.1. Build Automation
 
-See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
+See [UsingGradle.md](UsingGradle.md#using-gradle) to learn how to use Gradle for build automation.
 
 ### 5.2. Continuous Integration
 
@@ -330,291 +413,17 @@ Here are the steps to convert the project documentation files to PDF format.
     <img src="images/chrome_save_as_pdf.png" width="300"><br>
     _Figure 5.4.1 : Saving documentation as PDF files in Chrome_
 
-### 5.6. Managing Dependencies
-
-A project often depends on third-party libraries. For example, this App depends on the
-[Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
-can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
-is better than these alternatives.<br>
-a. Include those libraries in the repo (this bloats the repo size)<br>
-b. Require developers to download those libraries manually (this creates extra work for developers)<br>
-
-## Appendix A : User Stories
-
-Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
-
-
-Priority | As a ... | I want to ... | So that I can...
--------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use Opus
-`* * *` | user | add a new task using the task descriptor | record all my tasks
-`* * *` | user | edit a task | modify the attributes of the task whenever needed
-`* * *` | user | delete a task | remove tasks that I do not wish to keep track of
-`* * *` | user | mark a task as completed | differentiate between completed and uncompleted tasks
-`* * *` | user | set a deadline to a task | easily keep track of deadline for a certain task to be completed
-`* *` | user | undo  the previous action | recover from the unintended mistakes
-`* *` | user | redo  the previous undo action | recover from the unintended undo action
-`* *` | user | find for specific tasks using the attributes | locate certain tasks quickly
-`* *` | user | assign a tag to a task | group tasks that belongs to the same category together
-`* *` | user | specify the location of the storage file | save the data to the location of my preference
-`*` | user | add a note to a task | include more information to a task
-`*` | user | set the priority of a task | focus on the tasks of higher priorities
-`*` | user | sync the  to my google calendar | sync the tasks with the calendar and get notified
-`*` | user | input the command quickly | save time and effort
-
-## Appendix B : Use Cases
-
-(For all use cases below, the **System** is `Opus` and the **Actor** is the `user`, unless specified otherwise)
-
-#### Use case: Display help information
-
-**MSS**
-
-1. User requests to display help information
-2. Opus displays help information
-
-Use case ends
-
-#### Use case: Add task
-
-**MSS**
-
-1. User input command to add task
-2. Opus adds the task and shows the added task details
-
-Use case ends
-
-**Extensions**
-
-1a. The input format is invalid
-
-> 1a1. Opus shows an error message
-
-Use case ends
-
-#### Use case: Delete task
-
-**MSS**
-
-1. User requests to delete a specific task in the list
-2. Opus deletes the task
-
-Use case ends
-
-**Extensions**
-
-1a. The given index is invalid
-
-> 1a1. Opus shows an error message
-
-Use case ends
-
-#### Use case: Edit task
-
-**MSS**
-
-1. User requests to edit a specific task in the list
-2. Opus edits the task
-
-Use case ends
-
-**Extensions**
-
-1a. The given index is invalid
-
-> 1a1. Opus shows an error message
-
-Use case ends
-
-1b. The attribute given is invalid
-
-> 3b1. Opus shows an error message
-
-Use case ends
-
-1c. The value of the attribute is invalid
-
-> 1c1. Opus shows an error message
-
-Use case ends
-
-3d. The value of the attribute is the same as the previous value
-
->Use case ends
-
-
-#### Use case: Mark task as complete
-
-**MSS**
-
-1. User requests to mark a specific task in the list as complete
-2. Opus marks the task as complete
-
-Use case ends
-
-**Extensions**
-
-1a. The given index is invalid
-
-> 1a1. Opus shows an error message
-
-Use case ends
-
-#### Use case: Set deadline to a task
-
-**MSS**
-
-1. User requests to set a deadline to a specific task
-2. Opus sets a deadline for the task and displays the task
-
-Use case ends
-
-**Extensions**
-
-1a. The given index is invalid
-
-> 1a1. Opus shows an error message
-
-Use case ends
-
-1b. The date input by user is invalid
-
-> 1b1. Opus shows an error message
-
-Use case ends
-
-#### Use case: Undo the previous action
-
-**MSS**
-
-1. User requests to undo the previous action
-2. Opus shows which action is undone
-
-Use case ends
-
-**Extensions**
-
-1a. The history stack is empty
-
-> Use case ends
-
-#### Use case: Redo the previous undo action
-
-**MSS**
-
-1. User requests redo the previous undo action
-2. Opus shows which action is restored
-
-Use case ends
-
-**Extensions**
-
-1a. The restoration history stack is empty
-
-> Use case ends
-
-#### Use case: Find for specific tasks using the attributes
-
-**MSS**
-
-1. User requests to find tasks based on the attributes
-2. Opus shows a list of tasks
-
-Use case ends
-
-**Extensions**
-
-1a. The list is empty
-
-> Use case ends
-
-1b. The input bttribute is invalid
-
-> 1b1. Opus shows an error message
-
-Use case ends
-
-#### Use case: Assign a tag to a task
-
-**MSS**
-
-1. User requests to assign a tag to the task
-2. Opus shows the tag is assigned to the task
-
-Use case ends
-
-**Extensions**
-
-1a. The given index is invalid
-
-> 1a1. Opus shows an error message
-
-Use case ends
-
-1b. The tag input by user is invalid
-
-> 1b1. Opus shows an error message
-
-Use case ends
-
-#### Use case: Specify the location of the storage file
-
-**MSS**
-
-1. User requests to specify the location of the storage file
-2. Opus shows the location of the storage file is changed
-
-Use case ends
-
-**Extensions**
-
-1a. The location path is invalid
-
-> 1a1. Opus shows an error message
-
-Use case ends
-
-#### Use case: Add a note to a task
-
-**MSS**
-
-1. User requests to add a note to the task
-2. Opus shows the note is added to the task
-
-Use case ends
-
-**Extensions**
-
-1a. The input index is invalid
-
-> 1a1. Opus shows an error message
-
-Use case ends
-
-#### Use case: Set the priority of a task
-
-**MSS**
-
-1. User requests to set the priority of a task
-2. Opus shows the priority is set.
-
-Use case ends
-
-**Extensions**
-
-1a. The input index is invalid
-
-> 1a1. Opus shows an error message
-
-Use case ends
-
-1b. The priority value is invalid
-
-> 1b1. Opus shows an error message
-
-Use case ends
-
-## Appendix C : Non Functional Requirements
+### 5.6. Managing Dependencies and External Libraries
+
+In Opus, Gradle is used to managed all dependencies and external libraries. The external libraries used in this project are:
+* [ControlsFx](http://fxexperience.com/controlsfx/) `8.40.11`
+* [Guava](https://github.com/google/guava) `19.0`
+* [Jackson](https://github.com/FasterXML/jackson) `2.7.0`
+* [jUnit](http://junit.org/junit4/) `4.12`
+* [TestFx](https://github.com/TestFX/TestFX) `4.0`
+* [Monocle](https://wiki.openjdk.java.net/display/OpenJFX/Monocle) `1.8.0_20`
+
+## Appendix A : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
 2. Should be able to hold up to 1000 tasks without a noticeable sluggishness in performance for typical usage.
@@ -624,17 +433,13 @@ Use case ends
 5. Should follow OOP principles
 6. Should come with automated tests
 
-## Appendix D : Glossary
+## Appendix B : Glossary
 
 ##### Mainstream OS
 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
-
-> A contact detail that is not meant to be shared with others
-
-## Appendix E : Product Survey
+## Appendix C : Product Survey
 
 [**Simpliday**](http://www.simpliday.com/)
 

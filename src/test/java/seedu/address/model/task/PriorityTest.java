@@ -32,7 +32,7 @@ public class PriorityTest {
     @Test (expected = IllegalValueException.class)
     public void initialisePriorityWithInvalidArgs() throws IllegalValueException {
         @SuppressWarnings("unused")
-        Priority invalidPriority = new Priority("invalid");
+        Priority invalidPriority = new Priority("HIGH");
     }
 
     @Test
@@ -50,15 +50,10 @@ public class PriorityTest {
 
     @Test
     public void toUserInputString() {
-        assertEquals(Priority.toUserInputString(Type.NONE), Priority.PRIORITY_NONE);
-        assertEquals(Priority.toUserInputString(Type.HIGH), Priority.PRIORITY_HIGH);
-        assertEquals(Priority.toUserInputString(Type.MEDIUM), Priority.PRIORITY_MEDIUM);
-        assertEquals(Priority.toUserInputString(Type.LOW), Priority.PRIORITY_LOW);
-    }
-
-    @Test (expected = AssertionError.class)
-    public void toUserInputStringWithInvalidArgs() {
-        Priority.toUserInputString(null);
+        assertEquals(Type.NONE.toString(), Priority.PRIORITY_NONE);
+        assertEquals(Type.HIGH.toString(), Priority.PRIORITY_HIGH);
+        assertEquals(Type.MEDIUM.toString(), Priority.PRIORITY_MEDIUM);
+        assertEquals(Type.LOW.toString(), Priority.PRIORITY_LOW);
     }
 
     @Test

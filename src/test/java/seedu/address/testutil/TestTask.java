@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import java.util.Optional;
+
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Deadline;
 import seedu.address.model.task.Name;
@@ -29,10 +31,10 @@ public class TestTask implements ReadOnlyTask {
      */
     public TestTask(TestTask taskToCopy) {
         this.name = taskToCopy.getName();
-        this.priority = taskToCopy.getPriority();
+        this.priority = taskToCopy.getPriority().orElse(null);
         this.status = taskToCopy.getStatus();
-        this.note = taskToCopy.getNote();
-        this.deadline = taskToCopy.getDeadline();
+        this.note = taskToCopy.getNote().orElse(null);
+        this.deadline = taskToCopy.getDeadline().orElse(null);
         this.tags = taskToCopy.getTags();
     }
 
@@ -66,8 +68,8 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public Priority getPriority() {
-        return priority;
+    public Optional<Priority> getPriority() {
+        return Optional.of(priority);
     }
 
     @Override
@@ -76,13 +78,13 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public Note getNote() {
-        return note;
+    public Optional<Note> getNote() {
+        return Optional.of(note);
     }
 
     @Override
-    public Deadline getDeadline() {
-        return deadline;
+    public Optional<Deadline> getDeadline() {
+        return Optional.of(deadline);
     }
 
     @Override
@@ -98,10 +100,21 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        sb.append("n/" + this.getNote().value + " ");
-        sb.append("p/" + Priority.toUserInputString(this.getPriority().value) + " ");
+
+        if (this.getNote().isPresent()) {
+            sb.append("n/" + this.getNote().get().toString() + " ");
+        }
+
+        if (this.getPriority().isPresent()) {
+            sb.append("p/" + this.getPriority().get().toString());
+        }
+
         sb.append("s/" + this.getStatus().value + " ");
-        sb.append("d/" + this.getDeadline().toString() + " ");
+
+        if (this.getDeadline().isPresent()) {
+            sb.append("d/" + this.getDeadline().get().toString() + " ");
+        }
+
         this.getTags().asObservableList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
