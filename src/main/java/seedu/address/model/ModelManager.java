@@ -4,14 +4,12 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.model.task.DeadlineComparator;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
@@ -25,8 +23,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final TaskManager taskManager;
-    private final FilteredList<ReadOnlyTask> filteredTasks;
-    private final SortedList<ReadOnlyTask> sortedTasks;
+    private FilteredList<ReadOnlyTask> filteredTasks;
 
     /**
      * Initializes a ModelManager with the given taskManager and userPrefs.
@@ -39,7 +36,6 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.taskManager = new TaskManager(taskManager);
         filteredTasks = new FilteredList<>(this.taskManager.getTaskList());
-        sortedTasks = new SortedList<>(filteredTasks, new DeadlineComparator());
     }
 
     public ModelManager() {
@@ -99,6 +95,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateSortedListToShowAll() {
+        filteredTasks = new FilteredList<>(this.taskManager.getSortedList());
+        updateFilteredListToShowAll();
     }
 
     @Override
