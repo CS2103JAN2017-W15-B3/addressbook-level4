@@ -61,6 +61,7 @@ public class ParserUtil {
             break;
         default:
             element = value.orElse("");
+            break;
         }
         return element;
     }
