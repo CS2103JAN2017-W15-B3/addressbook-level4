@@ -59,6 +59,9 @@ public class ParserUtil {
         case "deadline":
             element = value.orElse("31/12/2017");
             break;
+        case "status":
+        	element = value.orElse("incomplete");
+        	break;
         default:
             element = value.orElse("");
             break;
