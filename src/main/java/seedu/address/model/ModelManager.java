@@ -39,7 +39,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.taskManager = new TaskManager(taskManager);
         filteredTasks = new FilteredList<>(this.taskManager.getTaskList());
-    	sortedTasks = new SortedList<>(filteredTasks, new DeadlineComparator());
+        sortedTasks = new SortedList<>(filteredTasks, new DeadlineComparator());
     }
 
     public ModelManager() {
@@ -96,7 +96,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
     }
-    
+
     @Override
     public void updateSortedListToShowAll() {
     }

@@ -10,6 +10,6 @@ public class DeadlineComparator implements Comparator<ReadOnlyTask> {
             return 1;
         } else {
             return 0;
-        }        
+        }
     }
 }

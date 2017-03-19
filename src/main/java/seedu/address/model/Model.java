@@ -44,6 +44,6 @@ public interface Model {
     void updateFilteredTaskList(Set<String> keywords);
 
     /** Updates the filter of the sorted task list to show all sorted tasks */
-	void updateSortedListToShowAll();
+    void updateSortedListToShowAll();
 
 }
