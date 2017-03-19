@@ -13,7 +13,7 @@ public class SortCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        model.sortFilteredListToShowAll();
+        model.updateSortedListToShowAll();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
