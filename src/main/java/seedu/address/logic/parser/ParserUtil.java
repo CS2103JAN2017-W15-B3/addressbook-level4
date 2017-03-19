@@ -48,7 +48,7 @@ public class ParserUtil {
 
     /**
      * Returns a new String with the given value
-     * Returns an empty String if the given {@code Optional} is empty,
+     * Returns an empty String or default value if the given {@code Optional} is empty,
      */
     public static String toValue(Optional<String> value, String type) {
         String element = "";
