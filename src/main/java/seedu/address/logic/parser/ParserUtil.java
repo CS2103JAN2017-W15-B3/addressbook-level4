@@ -15,7 +15,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.Deadline;
+import seedu.address.model.task.DateTime;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Note;
 import seedu.address.model.task.Priority;
@@ -123,11 +123,11 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code Optional<String> deadline} into an {@code Optional<Deadline>} if {@code deadline} is present.
+     * Parses a {@code Optional<String> dateTime} into an {@code Optional<DateTime>} if {@code dateTime} is present.
      */
-    public static Optional<Deadline> parseDeadline(Optional<String> deadline) throws IllegalValueException {
-        assert deadline != null;
-        return deadline.isPresent() ? Optional.of(new Deadline(deadline.get())) : Optional.empty();
+    public static Optional<DateTime> parseDateTime(Optional<String> dateTime) throws IllegalValueException {
+        assert dateTime != null;
+        return dateTime.isPresent() ? Optional.of(new DateTime(dateTime.get())) : Optional.empty();
     }
 
     /**

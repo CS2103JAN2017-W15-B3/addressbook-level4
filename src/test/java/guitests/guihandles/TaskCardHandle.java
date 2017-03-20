@@ -9,6 +9,7 @@ import javafx.scene.control.Labeled;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.DateTime;
 import seedu.address.model.task.Note;
 import seedu.address.model.task.Priority;
 import seedu.address.model.task.ReadOnlyTask;
@@ -21,6 +22,8 @@ public class TaskCardHandle extends GuiHandle {
     private static final String NOTE_FIELD_ID = "#note";
     private static final String PRIORITY_FIELD_ID = "#priority";
     private static final String STATUS_FIELD_ID = "#status";
+    private static final String STARTTIME_FIELD_ID = "#startTime";
+    private static final String ENDTIME_FIELD_ID = "#endTime";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private Node node;
@@ -48,6 +51,14 @@ public class TaskCardHandle extends GuiHandle {
 
     public String getStatus() {
         return getTextFromLabel(STATUS_FIELD_ID);
+    }
+
+    public String getStartTime() {
+        return getTextFromLabel(STARTTIME_FIELD_ID);
+    }
+
+    public String getEndTime() {
+        return getTextFromLabel(ENDTIME_FIELD_ID);
     }
 
     public List<String> getTags() {
@@ -79,6 +90,8 @@ public class TaskCardHandle extends GuiHandle {
                 && getPriority().equals(task.getPriority().map(Priority::toString).orElse(""))
                 && getStatus().equals(task.getStatus().value)
                 && getNote().equals(task.getNote().map(Note::toString).orElse(""))
+                && getStartTime().equals(task.getStartTime().map(DateTime::toString).orElse(""))
+                && getEndTime().equals(task.getEndTime().map(DateTime::toString).orElse(""))
                 && getTags().equals(getTags(task.getTags()));
     }
 

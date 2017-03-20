@@ -8,6 +8,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
+import seedu.address.commons.exceptions.InvalidUndoException;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.ReadOnlyTask;
@@ -25,6 +26,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskManager taskManager;
     private final FilteredList<ReadOnlyTask> filteredTasks;
 
+    private History history;
+
     /**
      * Initializes a ModelManager with the given taskManager and userPrefs.
      */
@@ -36,6 +39,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.taskManager = new TaskManager(taskManager);
         filteredTasks = new FilteredList<>(this.taskManager.getTaskList());
+        history = new History();
     }
 
     public ModelManager() {
@@ -44,6 +48,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void resetData(ReadOnlyTaskManager newData) {
+        history.backupCurrentState(this.taskManager);
         taskManager.resetData(newData);
         indicateAddressBookChanged();
     }
@@ -60,12 +65,14 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+        history.backupCurrentState(this.taskManager);
         taskManager.removeTask(target);
         indicateAddressBookChanged();
     }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+        history.backupCurrentState(this.taskManager);
         taskManager.addTask(task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
@@ -76,8 +83,21 @@ public class ModelManager extends ComponentManager implements Model {
             throws UniqueTaskList.DuplicateTaskException {
         assert editedTask != null;
 
+        history.backupCurrentState(this.taskManager);
         int taskManagerIndex = filteredTasks.getSourceIndex(filteredTaskListIndex);
         taskManager.updateTask(taskManagerIndex, editedTask);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void resetToPreviousState() throws InvalidUndoException {
+        this.taskManager.resetData(this.history.getPreviousState(this.taskManager));
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void resetToPrecedingState() throws InvalidUndoException {
+        this.taskManager.resetData(this.history.getPrecedingState(this.taskManager));
         indicateAddressBookChanged();
     }
 
