@@ -40,6 +40,7 @@ public class ArgumentTokenizer {
         extractArguments(argsString, positions);
     }
 
+    /**
      * Returns last value of given prefix.
      */
     public Optional<String> getValue(Prefix prefix) {
