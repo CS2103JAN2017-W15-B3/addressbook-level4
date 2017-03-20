@@ -29,15 +29,13 @@ public class AddCommandParser {
                 new ArgumentTokenizer(PREFIX_PRIORITY, PREFIX_STATUS, PREFIX_NOTE,
                         PREFIX_STARTTIME, PREFIX_ENDTIME, PREFIX_TAG);
         argsTokenizer.tokenize(args);
-        argsTokenizer.createFloatingTask();
         try {
             return new AddCommand(
                     argsTokenizer.getPreamble().get(),
-                    argsTokenizer.getValue(PREFIX_PRIORITY).get(),
-                    argsTokenizer.getValue(PREFIX_STATUS).get(),
-                    argsTokenizer.getValue(PREFIX_NOTE).get(),
-                    argsTokenizer.getValue(PREFIX_STARTTIME).get(),
-                    argsTokenizer.getValue(PREFIX_ENDTIME).get(),
+                    ParserUtil.toValue(argsTokenizer.getValue(PREFIX_PRIORITY), "priority"),
+                    ParserUtil.toValue(argsTokenizer.getValue(PREFIX_STATUS), "status"),
+                    ParserUtil.toValue(argsTokenizer.getValue(PREFIX_NOTE), "note"),
+                    ParserUtil.toValue(argsTokenizer.getValue(PREFIX_ENDTIME), "deadline"),
                     ParserUtil.toSet(argsTokenizer.getAllValues(PREFIX_TAG))
             );
         } catch (NoSuchElementException nsee) {
