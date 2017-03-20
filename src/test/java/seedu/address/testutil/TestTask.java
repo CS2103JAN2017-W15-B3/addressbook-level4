@@ -3,7 +3,7 @@ package seedu.address.testutil;
 import java.util.Optional;
 
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.Deadline;
+import seedu.address.model.task.DateTime;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Note;
 import seedu.address.model.task.Priority;
@@ -19,7 +19,8 @@ public class TestTask implements ReadOnlyTask {
     private Note note;
     private Status status;
     private Priority priority;
-    private Deadline deadline;
+    private DateTime startTime;
+    private DateTime endTime;
     private UniqueTagList tags;
 
     public TestTask() {
@@ -34,7 +35,8 @@ public class TestTask implements ReadOnlyTask {
         this.priority = taskToCopy.getPriority().orElse(null);
         this.status = taskToCopy.getStatus();
         this.note = taskToCopy.getNote().orElse(null);
-        this.deadline = taskToCopy.getDeadline().orElse(null);
+        this.startTime = taskToCopy.getStartTime().orElse(null);
+        this.endTime = taskToCopy.getEndTime().orElse(null);
         this.tags = taskToCopy.getTags();
     }
 
@@ -54,8 +56,12 @@ public class TestTask implements ReadOnlyTask {
         this.priority = priority;
     }
 
-    public void setDeadline(Deadline deadline) {
-        this.deadline = deadline;
+    public void setStartTime(DateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndTime(DateTime endTime) {
+        this.endTime = endTime;
     }
 
     public void setTags(UniqueTagList tags) {
@@ -69,7 +75,7 @@ public class TestTask implements ReadOnlyTask {
 
     @Override
     public Optional<Priority> getPriority() {
-        return Optional.of(priority);
+        return Optional.ofNullable(priority);
     }
 
     @Override
@@ -83,8 +89,13 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public Optional<Deadline> getDeadline() {
-        return Optional.of(deadline);
+    public Optional<DateTime> getStartTime() {
+        return Optional.of(startTime);
+    }
+
+    @Override
+    public Optional<DateTime> getEndTime() {
+        return Optional.of(endTime);
     }
 
     @Override
@@ -111,8 +122,12 @@ public class TestTask implements ReadOnlyTask {
 
         sb.append("s/" + this.getStatus().value + " ");
 
-        if (this.getDeadline().isPresent()) {
-            sb.append("d/" + this.getDeadline().get().toString() + " ");
+        if (this.getStartTime().isPresent()) {
+            sb.append("b/" + this.getStartTime().get().toString() + " ");
+        }
+
+        if (this.getEndTime().isPresent()) {
+            sb.append("e/" + this.getEndTime().get().toString() + " ");
         }
 
         this.getTags().asObservableList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));

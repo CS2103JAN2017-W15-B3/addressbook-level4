@@ -7,7 +7,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.Deadline;
+import seedu.address.model.task.DateTime;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Note;
 import seedu.address.model.task.Priority;
@@ -27,7 +27,7 @@ public class EditCommand extends Command {
             + "by the index number used in the last task listing. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[NAME] [p/PRIORITY] [n/NOTE] [s/STATUS] [d/DEADLINE] [t/TAG]...\n"
+            + "[NAME] [p/PRIORITY] [n/NOTE] [s/STATUS] [b/STARTTIME] [e/ENDTIME] [t/TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 p/mid s/complete";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
@@ -90,14 +90,20 @@ public class EditCommand extends Command {
                 .map(Optional::of)
                 .orElseGet(taskToEdit::getNote)
                 .orElse(null);
-        Deadline updatedDeadline = editTaskDescriptor
-                .getDeadline()
+        DateTime updatedStartTime = editTaskDescriptor
+                .getStartTime()
                 .map(Optional::of)
-                .orElseGet(taskToEdit::getDeadline)
+                .orElseGet(taskToEdit::getStartTime)
+                .orElse(null);
+        DateTime updatedEndTime = editTaskDescriptor
+                .getEndTime()
+                .map(Optional::of)
+                .orElseGet(taskToEdit::getEndTime)
                 .orElse(null);
         UniqueTagList updatedTags = editTaskDescriptor.getTags().orElseGet(taskToEdit::getTags);
 
-        return new Task(updatedName, updatedPriority, updatedStatus, updatedNote, updatedDeadline, updatedTags);
+        return new Task(updatedName, updatedPriority, updatedStatus, updatedNote,
+                updatedStartTime, updatedEndTime, updatedTags);
     }
 
     /**
@@ -109,7 +115,8 @@ public class EditCommand extends Command {
         private Optional<Priority> priority = Optional.empty();
         private Optional<Status> status = Optional.empty();
         private Optional<Note> note = Optional.empty();
-        private Optional<Deadline> deadline = Optional.empty();
+        private Optional<DateTime> startTime = Optional.empty();
+        private Optional<DateTime> endTime = Optional.empty();
         private Optional<UniqueTagList> tags = Optional.empty();
 
         public EditTaskDescriptor() {}
@@ -119,7 +126,8 @@ public class EditCommand extends Command {
             this.priority = toCopy.getPriority();
             this.status = toCopy.getStatus();
             this.note = toCopy.getNote();
-            this.deadline = toCopy.getDeadline();
+            this.startTime = toCopy.getStartTime();
+            this.endTime = toCopy.getEndTime();
             this.tags = toCopy.getTags();
         }
 
@@ -128,7 +136,7 @@ public class EditCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyPresent(this.name, this.priority, this.status,
-                    this.note, this.deadline, this.tags);
+                    this.note, this.startTime, this.endTime, this.tags);
         }
 
         public void setName(Optional<Name> name) {
@@ -167,13 +175,22 @@ public class EditCommand extends Command {
             return note;
         }
 
-        public void setDeadline(Optional<Deadline> deadline) {
-            assert deadline != null;
-            this.deadline = deadline;
+        public void setStartTime(Optional<DateTime> startTime) {
+            assert startTime != null;
+            this.startTime = startTime;
         }
 
-        public Optional<Deadline> getDeadline() {
-            return deadline;
+        public Optional<DateTime> getStartTime() {
+            return startTime;
+        }
+
+        public void setEndTime(Optional<DateTime> endTime) {
+            assert endTime != null;
+            this.endTime = endTime;
+        }
+
+        public Optional<DateTime> getEndTime() {
+            return endTime;
         }
 
         public void setTags(Optional<UniqueTagList> tags) {

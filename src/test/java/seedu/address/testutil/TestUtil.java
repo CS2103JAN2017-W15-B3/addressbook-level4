@@ -32,7 +32,7 @@ import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.TaskManager;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.Deadline;
+import seedu.address.model.task.DateTime;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Note;
 import seedu.address.model.task.Priority;
@@ -76,15 +76,24 @@ public class TestUtil {
         try {
             //CHECKSTYLE.OFF: LineLength
             return new Task[]{
-                new Task(new Name("Ali Muster"), new Priority("hi"), new Status("hans@google.com"), new Note("4th street"), new Deadline("05/05/2017"), new UniqueTagList()),
-                new Task(new Name("Boris Mueller"), new Priority("mid"), new Status("ruth@google.com"), new Note("81th street"), new Deadline("06/05/2017"), new UniqueTagList()),
-                new Task(new Name("Carl Kurz"), new Priority("low"), new Status("heinz@yahoo.com"), new Note("wall street"), new Deadline("07/06/2017"), new UniqueTagList()),
-                new Task(new Name("Daniel Meier"), new Priority("mid"), new Status("cornelia@google.com"), new Note("10th street"), new Deadline("08/05/2017"), new UniqueTagList()),
-                new Task(new Name("Elle Meyer"), new Priority("hi"), new Status("werner@gmail.com"), new Note("michegan ave"), new Deadline("08/05/2017"), new UniqueTagList()),
-                new Task(new Name("Fiona Kunz"), new Priority("mid"), new Status("lydia@gmail.com"), new Note("little tokyo"), new Deadline("12/05/2017"), new UniqueTagList()),
-                new Task(new Name("George Best"), new Priority("low"), new Status("anna@google.com"), new Note("4th street"), new Deadline("12/05/2017"), new UniqueTagList()),
-                new Task(new Name("Hoon Meier"), new Priority("mid"), new Status("stefan@mail.com"), new Note("little india"), new Deadline("12/06/2017"), new UniqueTagList()),
-                new Task(new Name("Ida Mueller"), new Priority("hi"), new Status("hans@google.com"), new Note("chicago ave"), new Deadline("12/06/2017"), new UniqueTagList())
+                new Task(new Name("Ali Muster"), new Priority("hi"), new Status("hans@google.com"), new Note("4th street"),
+                        new DateTime("05/05/2017 12:00"), new DateTime("05/05/2017 13:00"), new UniqueTagList()),
+                new Task(new Name("Boris Mueller"), new Priority("mid"), new Status("ruth@google.com"), new Note("81th street"),
+                        new DateTime("06/05/2017 12:00"), new DateTime("05/05/2017 13:00"), new UniqueTagList()),
+                new Task(new Name("Carl Kurz"), new Priority("low"), new Status("heinz@yahoo.com"), new Note("wall street"),
+                        new DateTime("07/06/2017 12:00"), new DateTime("05/05/2017 13:00"), new UniqueTagList()),
+                new Task(new Name("Daniel Meier"), new Priority("mid"), new Status("cornelia@google.com"), new Note("10th street"),
+                        new DateTime("08/05/2017 12:00"), new DateTime("05/05/2017 13:00"), new UniqueTagList()),
+                new Task(new Name("Elle Meyer"), new Priority("hi"), new Status("werner@gmail.com"), new Note("michegan ave"),
+                        new DateTime("08/05/2017 12:00"), new DateTime("05/05/2017 13:00"), new UniqueTagList()),
+                new Task(new Name("Fiona Kunz"), new Priority("mid"), new Status("lydia@gmail.com"), new Note("little tokyo"),
+                        new DateTime("12/05/2017 12:00"), new DateTime("05/05/2017 13:00"), new UniqueTagList()),
+                new Task(new Name("George Best"), new Priority("low"), new Status("anna@google.com"), new Note("4th street"),
+                        new DateTime("12/05/2017 12:00"), new DateTime("05/05/2017 13:00"), new UniqueTagList()),
+                new Task(new Name("Hoon Meier"), new Priority("mid"), new Status("stefan@mail.com"), new Note("little india"),
+                        new DateTime("12/06/2017 12:00"), new DateTime("05/05/2017 13:00"), new UniqueTagList()),
+                new Task(new Name("Ida Mueller"), new Priority("hi"), new Status("hans@google.com"), new Note("chicago ave"),
+                        new DateTime("12/06/2017 12:00"), new DateTime("05/05/2017 13:00"), new UniqueTagList())
             };
             //CHECKSTYLE.ON: LineLength
         } catch (IllegalValueException e) {

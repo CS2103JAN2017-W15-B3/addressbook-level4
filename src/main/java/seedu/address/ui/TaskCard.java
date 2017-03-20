@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.task.Deadline;
+import seedu.address.model.task.DateTime;
 import seedu.address.model.task.Note;
 import seedu.address.model.task.Priority;
 import seedu.address.model.task.ReadOnlyTask;
@@ -27,7 +27,9 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label status;
     @FXML
-    private Label deadline;
+    private Label startTime;
+    @FXML
+    private Label endTime;
     @FXML
     private FlowPane tags;
 
@@ -38,7 +40,8 @@ public class TaskCard extends UiPart<Region> {
         priority.setText(task.getPriority().map(Priority::toString).orElse(""));
         note.setText(task.getNote().map(Note::toString).orElse(""));
         status.setText(task.getStatus().value);
-        deadline.setText(task.getDeadline().map(Deadline::toString).orElse(""));
+        startTime.setText(task.getStartTime().map(DateTime::toString).orElse(""));
+        endTime.setText(task.getEndTime().map(DateTime::toString).orElse(""));
         initTags(task);
     }
 

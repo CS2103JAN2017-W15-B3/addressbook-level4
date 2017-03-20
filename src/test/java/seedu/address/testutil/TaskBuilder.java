@@ -3,7 +3,7 @@ package seedu.address.testutil;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.Deadline;
+import seedu.address.model.task.DateTime;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Note;
 import seedu.address.model.task.Priority;
@@ -55,8 +55,18 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withDeadline(String deadline) throws IllegalValueException {
-        this.task.setDeadline(new Deadline(deadline));
+    public TaskBuilder withStartTime(String startTime) throws IllegalValueException {
+        this.task.setStartTime(new DateTime(startTime));
+        return this;
+    }
+
+    public TaskBuilder withEndTime(String endTime) throws IllegalValueException {
+        this.task.setEndTime(new DateTime(endTime));
+        return this;
+    }
+
+    public TaskBuilder withNullPriority() {
+        this.task.setPriority(null);
         return this;
     }
 

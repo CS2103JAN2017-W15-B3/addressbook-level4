@@ -14,7 +14,8 @@ public interface ReadOnlyTask {
     Optional<Priority> getPriority();
     Status getStatus();
     Optional<Note> getNote();
-    Optional<Deadline> getDeadline();
+    Optional<DateTime> getStartTime();
+    Optional<DateTime> getEndTime();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -32,7 +33,8 @@ public interface ReadOnlyTask {
                 && other.getPriority().equals(this.getPriority())
                 && other.getStatus().equals(this.getStatus())
                 && other.getNote().equals(this.getNote())
-                && other.getDeadline().equals(this.getDeadline()));
+                && other.getStartTime().equals(this.getStartTime())
+                && other.getEndTime().equals(this.getEndTime()));
     }
 
     /**
@@ -54,8 +56,12 @@ public interface ReadOnlyTask {
             builder.append(" Note: ").append(getNote().get().toString());
         }
 
-        if (getDeadline().isPresent()) {
-            builder.append(" Deadline: ").append(getDeadline().get().toString());
+        if (getStartTime().isPresent()) {
+            builder.append(" Start Time: ").append(getStartTime().get().toString());
+        }
+
+        if (getEndTime().isPresent()) {
+            builder.append(" End Time: ").append(getEndTime().get().toString());
         }
 
         builder.append(" Tags: ");

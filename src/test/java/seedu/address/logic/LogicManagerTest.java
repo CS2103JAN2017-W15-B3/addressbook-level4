@@ -35,16 +35,19 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.MarkCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.History;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.TaskManager;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.Deadline;
+import seedu.address.model.task.DateTime;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Note;
 import seedu.address.model.task.Priority;
@@ -433,6 +436,114 @@ public class LogicManagerTest {
                 expectedList);
     }
 
+    @Test
+    public void executeUndoResetToPreviousState() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task testTask1 = helper.generateTaskWithName("Task1");
+        Task testTask2 = helper.generateTaskWithName("Task2");
+        List<Task> oneTasks = helper.generateTaskList(testTask1);
+        TaskManager expectedTaskManager = helper.generateAddressBook(oneTasks);
+        Task testTask1Copy = helper.generateTaskWithName("Task1");
+
+        //Undo adding one task
+        model.addTask(testTask1);
+        assertCommandSuccess("undo", UndoCommand.MESSAGE_SUCCESS, new TaskManager(), Collections.EMPTY_LIST);
+
+        //Undo adding task when there is 1 existing task
+        model.resetData(new TaskManager());
+        model.addTask(testTask1);
+        model.addTask(testTask2);
+        assertCommandSuccess("undo", UndoCommand.MESSAGE_SUCCESS, expectedTaskManager, oneTasks);
+
+        //Undo Deletion
+        model.resetData(new TaskManager());
+        model.addTask(testTask1);
+        model.deleteTask(testTask1);
+        assertCommandSuccess("undo", UndoCommand.MESSAGE_SUCCESS, expectedTaskManager, oneTasks);
+
+        //Undo Edit
+        model.resetData(new TaskManager());
+        model.addTask(testTask1Copy);
+        model.updateTask(0, testTask2);
+        assertCommandSuccess("undo", UndoCommand.MESSAGE_SUCCESS, expectedTaskManager, oneTasks);
+    }
+
+    @Test
+    public void executeRedoResetToPrecedingState() throws Exception {
+        TaskManager tempTaskManager;
+        TestDataHelper helper = new TestDataHelper();
+        Task testTask1 = helper.generateTaskWithName("Task1");
+        Task testTask2 = helper.generateTaskWithName("Task2");
+        List<Task> oneTasks = helper.generateTaskList(testTask1);
+        List<Task> twoTasks = helper.generateTaskList(testTask1, testTask2);
+        List<Task> taskTwoOnly = helper.generateTaskList(testTask2);
+        TaskManager expectedTaskManagerWithOneTask = helper.generateAddressBook(oneTasks);
+        TaskManager expectedTaskManagerWithTwoTask = helper.generateAddressBook(twoTasks);
+        Task testTask1Copy = helper.generateTaskWithName("Task1");
+
+        //Redo adding one task
+        model.addTask(testTask1);
+        assertCommandSuccess("undo", UndoCommand.MESSAGE_SUCCESS, new TaskManager(), Collections.emptyList());
+        assertCommandSuccess("redo", RedoCommand.MESSAGE_SUCCESS, expectedTaskManagerWithOneTask, oneTasks);
+
+        //Redo adding two task
+        model.resetData(new TaskManager());
+        model.addTask(testTask1);
+        model.addTask(testTask2);
+        assertCommandSuccess("undo", UndoCommand.MESSAGE_SUCCESS, expectedTaskManagerWithOneTask, oneTasks);
+        assertCommandSuccess("undo", UndoCommand.MESSAGE_SUCCESS, new TaskManager(), Collections.emptyList());
+        assertCommandSuccess("redo", RedoCommand.MESSAGE_SUCCESS, expectedTaskManagerWithOneTask, oneTasks);
+        assertCommandSuccess("redo", RedoCommand.MESSAGE_SUCCESS, expectedTaskManagerWithTwoTask, twoTasks);
+
+        //Redo Deletion
+        model.resetData(new TaskManager());
+        model.addTask(testTask1);
+        model.deleteTask(testTask1);
+        tempTaskManager = new TaskManager(model.getTaskManager());
+        assertCommandSuccess("undo", UndoCommand.MESSAGE_SUCCESS, expectedTaskManagerWithOneTask, oneTasks);
+        assertCommandSuccess("redo", RedoCommand.MESSAGE_SUCCESS, tempTaskManager, Collections.emptyList());
+
+        //Redo Edit
+        model.resetData(new TaskManager());
+        model.addTask(testTask1Copy);
+        model.updateTask(0, testTask2);
+        tempTaskManager = new TaskManager(model.getTaskManager());
+        assertCommandSuccess("undo", UndoCommand.MESSAGE_SUCCESS, expectedTaskManagerWithOneTask, oneTasks);
+        assertCommandSuccess("redo", RedoCommand.MESSAGE_SUCCESS, tempTaskManager, taskTwoOnly);
+    }
+
+    @Test
+    public void assertUndoException() {
+        assertCommandFailure("undo", History.MESSAGE_INVALID_UNDO);
+    }
+
+    @Test
+    public void assertRedoException() {
+        assertCommandFailure("redo", History.MESSAGE_INVALID_REDO);
+    }
+
+    @Test
+    public void executeUndoFailure() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task testTask1 = helper.generateTaskWithName("Task1");
+
+        model.addTask(testTask1);
+        assertCommandSuccess("undo", UndoCommand.MESSAGE_SUCCESS, new TaskManager(), Collections.emptyList());
+        assertCommandFailure("undo", History.MESSAGE_INVALID_UNDO);
+    }
+
+    @Test
+    public void executeRedoFailure() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task testTask1 = helper.generateTaskWithName("Task1");
+        List<Task> oneTasks = helper.generateTaskList(testTask1);
+        TaskManager expectedTaskManager = helper.generateAddressBook(oneTasks);
+
+        model.addTask(testTask1);
+        assertCommandSuccess("undo", UndoCommand.MESSAGE_SUCCESS, new TaskManager(), Collections.emptyList());
+        assertCommandSuccess("redo", RedoCommand.MESSAGE_SUCCESS, expectedTaskManager, oneTasks);
+        assertCommandFailure("redo", History.MESSAGE_INVALID_REDO);
+    }
 
     /**
      * A utility class to generate test data.
@@ -444,11 +555,12 @@ public class LogicManagerTest {
             Priority priority = new Priority("hi");
             Status email = new Status("incomplete");
             Note note = new Note("edit slides");
-            Deadline deadline = new Deadline("12/12/2020");
+            DateTime startTime = new DateTime("12/12/2020 12:00");
+            DateTime endTime = new DateTime("12/12/2020 13:00");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("longertag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, priority, email, note, deadline, tags);
+            return new Task(name, priority, email, note, startTime, endTime, tags);
         }
 
         /**
@@ -464,7 +576,8 @@ public class LogicManagerTest {
                     generatePriorityWithSeed(seed),
                     new Status(seed + "@email"),
                     new Note("House of " + seed),
-                    new Deadline("12/12/" + (2017 + seed)),
+                    new DateTime("12/12/" + (2017 + seed) + " 12:00"),
+                    new DateTime("12/12/" + (2017 + seed) + " 13:00"),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -486,8 +599,12 @@ public class LogicManagerTest {
                 cmd.append(" n/").append(p.getNote().get().toString());
             }
 
-            if (p.getDeadline().isPresent()) {
-                cmd.append(" d/").append(p.getDeadline().get().toString());
+            if (p.getStartTime().isPresent()) {
+                cmd.append(" b/").append(p.getStartTime().get().toString());
+            }
+
+            if (p.getEndTime().isPresent()) {
+                cmd.append(" e/").append(p.getEndTime().get().toString());
             }
 
             UniqueTagList tags = p.getTags();
@@ -574,7 +691,8 @@ public class LogicManagerTest {
                     new Priority("hi"),
                     new Status("incomplete"),
                     new Note("House of 1"),
-                    new Deadline("12/12/2020"),
+                    new DateTime("12/12/2020 12:00"),
+                    new DateTime("12/12/2020 13:00"),
                     new UniqueTagList(new Tag("tag"))
             );
         }
