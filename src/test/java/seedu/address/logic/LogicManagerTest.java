@@ -236,7 +236,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_list_showsSortedTasks() throws Exception {
+    public void executeSortTasks() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         TaskManager expectedTaskManager = helper.generateAddressBook(2);
