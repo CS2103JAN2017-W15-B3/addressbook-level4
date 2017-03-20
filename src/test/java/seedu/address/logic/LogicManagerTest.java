@@ -36,6 +36,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.MarkCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -230,6 +231,22 @@ public class LogicManagerTest {
 
         assertCommandSuccess("list",
                 ListCommand.MESSAGE_SUCCESS,
+                expectedTaskManager,
+                expectedList);
+    }
+
+    @Test
+    public void execute_list_showsSortedTasks() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        TaskManager expectedTaskManager = helper.generateAddressBook(2);
+        List<? extends ReadOnlyTask> expectedList = expectedTaskManager.getSortedList();
+
+        // prepare address book state
+        helper.addToModel(model, 2);
+
+        assertCommandSuccess("sort",
+                SortCommand.MESSAGE_SUCCESS,
                 expectedTaskManager,
                 expectedList);
     }
