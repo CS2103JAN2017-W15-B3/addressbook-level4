@@ -167,6 +167,11 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     @Override
+    public ObservableList<ReadOnlyTask> getSortedList() {
+        return new UnmodifiableObservableList<>(tasks.asSortedList());
+    }
+
+    @Override
     public ObservableList<Tag> getTagList() {
         return new UnmodifiableObservableList<>(tags.asObservableList());
     }

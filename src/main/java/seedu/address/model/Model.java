@@ -44,6 +44,9 @@ public interface Model {
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
 
+    /** Updates the filter of the sorted task list to show all sorted tasks */
+    void updateSortedListToShowAll();
+
     /**
      * Reset current data to the previous state to undo changes
      * @throws InvalidUndoException

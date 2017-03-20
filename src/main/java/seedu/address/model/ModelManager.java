@@ -24,7 +24,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final TaskManager taskManager;
-    private final FilteredList<ReadOnlyTask> filteredTasks;
+    private FilteredList<ReadOnlyTask> filteredTasks;
 
     private History history;
 
@@ -111,6 +111,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
+    }
+
+    @Override
+    public void updateSortedListToShowAll() {
+        filteredTasks = new FilteredList<>(this.taskManager.getSortedList());
+        updateFilteredListToShowAll();
     }
 
     @Override
