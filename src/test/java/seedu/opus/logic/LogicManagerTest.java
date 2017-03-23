@@ -778,13 +778,13 @@ public class LogicManagerTest {
         private Priority generatePriorityWithSeed(int seed) {
             switch(seed) {
             case 1:
-                return new Priority(Priority.Type.LOW);
+                return new Priority(Priority.Level.LOW);
             case 2:
-                return new Priority(Priority.Type.MEDIUM);
+                return new Priority(Priority.Level.MEDIUM);
             case 3:
-                return new Priority(Priority.Type.HIGH);
+                return new Priority(Priority.Level.HIGH);
             default:
-                return new Priority(Priority.Type.NONE);
+                return null;
             }
         }
     }
