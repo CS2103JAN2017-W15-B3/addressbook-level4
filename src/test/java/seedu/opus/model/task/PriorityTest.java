@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.opus.commons.exceptions.IllegalValueException;
-import seedu.opus.model.task.Priority.Type;
+import seedu.opus.model.task.Priority.Level;
 
 public class PriorityTest {
 
@@ -36,9 +36,9 @@ public class PriorityTest {
 
     @Test
     public void parseValidUserInputString() throws IllegalValueException {
-        assertEquals(Priority.parseUserInputString("hi"), Priority.Type.HIGH);
-        assertEquals(Priority.parseUserInputString("mid"), Priority.Type.MEDIUM);
-        assertEquals(Priority.parseUserInputString("low"), Priority.Type.LOW);
+        assertEquals(Priority.parseUserInputString("hi"), Priority.Level.HIGH);
+        assertEquals(Priority.parseUserInputString("mid"), Priority.Level.MEDIUM);
+        assertEquals(Priority.parseUserInputString("low"), Priority.Level.LOW);
     }
 
     @Test (expected = IllegalValueException.class)
@@ -48,16 +48,16 @@ public class PriorityTest {
 
     @Test
     public void toUserInputString() {
-        assertEquals(Type.HIGH.toString(), Priority.PRIORITY_HIGH);
-        assertEquals(Type.MEDIUM.toString(), Priority.PRIORITY_MEDIUM);
-        assertEquals(Type.LOW.toString(), Priority.PRIORITY_LOW);
+        assertEquals(Level.HIGH.toString(), Priority.PRIORITY_HIGH);
+        assertEquals(Level.MEDIUM.toString(), Priority.PRIORITY_MEDIUM);
+        assertEquals(Level.LOW.toString(), Priority.PRIORITY_LOW);
     }
 
     @Test
     public void parseValidXmlString() throws IllegalValueException {
-        assertEquals(Priority.parseXmlString("HIGH"), Priority.Type.HIGH);
-        assertEquals(Priority.parseXmlString("MEDIUM"), Priority.Type.MEDIUM);
-        assertEquals(Priority.parseXmlString("LOW"), Priority.Type.LOW);
+        assertEquals(Priority.parseXmlString("HIGH"), Priority.Level.HIGH);
+        assertEquals(Priority.parseXmlString("MEDIUM"), Priority.Level.MEDIUM);
+        assertEquals(Priority.parseXmlString("LOW"), Priority.Level.LOW);
     }
 
     @Test (expected = IllegalValueException.class)
