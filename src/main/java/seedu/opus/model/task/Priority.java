@@ -10,7 +10,6 @@ public class Priority {
 
     public static enum Type {
 
-        NONE,
         HIGH,
         MEDIUM,
         LOW;
@@ -24,8 +23,6 @@ public class Priority {
                 return PRIORITY_MEDIUM;
             case LOW:
                 return PRIORITY_LOW;
-            case NONE:
-                return PRIORITY_NONE;
             default:
                 throw new AssertionError();
             }
@@ -39,7 +36,6 @@ public class Priority {
     public static final String PRIORITY_HIGH = "hi";
     public static final String PRIORITY_MEDIUM = "mid";
     public static final String PRIORITY_LOW = "low";
-    public static final String PRIORITY_NONE = "none";
 
     private final Type value;
 
@@ -67,7 +63,7 @@ public class Priority {
      * Initialise a Priority with Type value of Type.NONE
      */
     public Priority() {
-        this.value = Type.NONE;
+        this.value = null;
     }
 
     /**
@@ -86,8 +82,6 @@ public class Priority {
             return Type.MEDIUM;
         case PRIORITY_LOW:
             return Type.LOW;
-        case PRIORITY_NONE:
-            return Type.NONE;
         default:
             throw new IllegalValueException(MESSAGE_PRIORITY_CONSTRAINTS);
         }
