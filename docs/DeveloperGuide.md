@@ -9,6 +9,7 @@ By : `Team W15-B3`  &nbsp;&nbsp;&nbsp;&nbsp; Since: `Mar 2017`  &nbsp;&nbsp;&nbs
 3. [Implementation](#3-implementation)
 4. [Code Quality and Testing](#4-code-quality-and-testing)
 5. [Dev Ops](#5-dev-ops)
+6. [Version Control](#6-version-control)
 
 * [Appendix A: Non Functional Requirements](#appendix-a--non-functional-requirements)
 * [Appendix B: Glossary](#appendix-b--glossary)
@@ -22,16 +23,16 @@ By : `Team W15-B3`  &nbsp;&nbsp;&nbsp;&nbsp; Since: `Mar 2017`  &nbsp;&nbsp;&nbs
 
 1. **JDK 1.8.0_60 or later**.
     > JDK version `1.8.0_60` or later is required to run the project correctly
-2. **Eclipse IDE Neon**. 
+2. **Eclipse IDE Neon**.
     >Follow the instructions [here](https://www.eclipse.org/downloads/eclipse-packages/?show_instructions=TRUE) to download and install Eclipse.
-3. **e(fx)clipse plugin for Eclipse**. 
+3. **e(fx)clipse plugin for Eclipse**.
     >Follow the instructions [here](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious) to set up e(fx)clipse for Eclipse
 4. **Buildship Gradle Integration**.
     >Buildship is bundled together with Eclipse Neon and above.
 5. **Checkstyle Plug-in**.
 
 ### 1.2. Installing Checkstyle manually
-    As of August 16, 2016, the Checkstyle repository in Eclipse Marketplace is unavailable. 
+    As of August 16, 2016, the Checkstyle repository in Eclipse Marketplace is unavailable.
 
 1. Download the compressed .zip file [here](https://sourceforge.net/projects/eclipse-cs/?source=typ_redirect). **Do not** extract the contents.
 2. Launch Eclipse Neon.
@@ -45,7 +46,7 @@ By : `Team W15-B3`  &nbsp;&nbsp;&nbsp;&nbsp; Since: `Mar 2017`  &nbsp;&nbsp;&nbs
 <br><img src="images/checkstyle/checkstyle_4.png" width="400"><br><br>
 7. Check `Checkstyle` and click `Next`.
 <br><img src="images/checkstyle/checkstyle_5.png" width="400"><br><br>
-8. Click `Next` and accept the user license agreement as follows. 
+8. Click `Next` and accept the user license agreement as follows.
 <br><img src="images/checkstyle/checkstyle_6.png" width="400"><br><br>
 9. Click `Finish` to install Checkstyle.
 <br><img src="images/checkstyle/checkstyle_7.png" width="400"><br><br>
@@ -85,7 +86,7 @@ More information about using Gradle can be found [here](https://github.com/CS210
 5. Click OK once, go to the `Main` tab, use the newly imported check configuration.
 6. Check and select `files from packages`, click `Change...`, and select the `resource`.
 7. Click OK twice. Rebuild project as required.
-    
+
     Click on the `files from packages` text after ticking in order to enable the `Change...` button
 
 ### 1.5. Troubleshooting project setup
@@ -118,7 +119,7 @@ Given below is a quick overview of each component.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
 
 #### Commons
-[**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
+[**`Commons`**](#26-common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play important roles at the architecture level.
 
 * `EventsCenter` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
@@ -126,19 +127,19 @@ Two of those classes play important roles at the architecture level.
 * `LogsCenter` : Used by many classes to write log messages to the App's log file for debugging and communication between developers.
 
 #### User Interface (UI)
-The [**`UI`**](#ui-component) represents graphical views and handles interactions between the user and the program such as display the task lists. 
+The [**`UI`**](#22-ui-component) represents graphical views and handles interactions between the user and the program such as display the task lists.
 
 #### Logic
-The [**`Logic`**](#logic-component) accepts commands sent from the user pass it to the model to process.
+The [**`Logic`**](#23-logic-component) accepts commands sent from the user pass it to the model to process.
 
 #### Model
-The [**`Model`**](#model-component) holds the data of the App in-memory and manage and update it accordingly to the commands received.
+The [**`Model`**](#24-model-component) holds the data of the App in-memory and manage and update it accordingly to the commands received.
 
 #### Storage
-The [**`Storage`**](#storage-component) Reads data from, and writes data to, the hard disk.
+The [**`Storage`**](#25-storage-component) Reads data from, and writes data to, the hard disk.
 
-Each of the four components, [**`UI`**](#ui-component), [**`Logic`**](#logic-component), 
-[**`Model`**](#model-component) and [**`Storage`**](#storage-component)
+Each of the four components, [**`UI`**](#22-ui-component), [**`Logic`**](#23-logic-component),
+[**`Model`**](#24-model-component) and [**`Storage`**](#25-storage-component)
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
@@ -197,7 +198,7 @@ The `WeekTaskListPanel` shows all incomplete tasks that are due within a week.
 The `FloatingTaskListPanel` shows all the incomplete tasks that do not have deadlines.
 
 The `StatusBarFooter` shows when the app has been last updated and storage file path.
- 
+
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
  For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
@@ -213,7 +214,7 @@ The `UI` component,
 
 Author: [Lam Guang Jun](http://github.com/gjlam95)
 
-The `Logic` component process all the business logic and incoming requests. 
+The `Logic` component process all the business logic and incoming requests.
 It manipulates data based on the `Model` component and communicates with the `UI` component
 to display the final output.
 
@@ -251,6 +252,23 @@ The `Model` component does not depends on other three components and consists of
 
 The `Model` component exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 
+#### 2.4.1 Undo/Redo implementation
+
+The `undo/redo` feature in Opus is designed based on the momento command pattern. This command pattern design comprises of three components - `momento`, the data object which the rollback operation will be executed upon, `oringator` the component that generates the `momento` object and the `momento collector`. 
+
+Whenever the data object is modified, the `originator` sends a copy of the current state of the data as a `memento` object to the `momento collector` to keep track of. When the undo command is given, the `momento collector` simply returns the `momento` object representing the previous state of the data.
+
+In Opus, we have:
+* `ModelManager` as the `originator`.
+* `TaskManagers` as `momento` objects.
+* `History` as the `momento collector`. 
+
+`History` contains two list of `TaskManager`, one for the backward `undo` operation and another for the forward `redo` operation.
+
+Using the entire `TaskManager` as the `momento` object rather than the individual `Task` attributes simplfies overall design and implementation of this feature. Whenever the `TaskManager` is mutated, `ModelManager` will push a copy of `TaskManager` to `History`. This approach is robust and resistant to data inconsistency when multiple changes are made by a single command. 
+
+Futhermore, this reduces overall coupling and complexity of Opus and improves extensibility. New features or `Task` attributes can be added without having to modify any part of the Undo/Redo implementation. This is possible as that the entire `TaskManager` is captured as a single snapshot, which includes any attribute that is newly added to the `Task` or `Tag` implementation.
+
 ### 2.5. Storage component
 
 Author: [Shi Yanzhang](http://github.com/mynameisyz)
@@ -262,7 +280,7 @@ _Figure 2.5.1 : Structure of the Storage Component_
 
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
-The `Storage` component listens the `TaskManagerChangedEvent` and 
+The `Storage` component listens the `TaskManagerChangedEvent` and
 whenever there is a change to the task manager data, the component updates the storage files accordingly. It
 
 * saves `UserPref` objects in json format and read it back.
@@ -280,7 +298,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file
-  (See [Configuration](#configuration))
+  (See [Configuration](#32-configuration))
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to
   the specified logging level
 * Currently log messages are output through: `Console` and to a `.log` file.
@@ -296,18 +314,18 @@ and logging destinations.
 ### 3.2. Configuration
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file
-(default: `config.json`):
+(default: `config.json`).
 
 
 ## 4. Code Quality and Testing
 
 ### 4.1. Code Quality
 
-In Opus, we asipre to attain high quality coding standards by applying the principles of defensive programming. Defensive prgramming principles and techniques enable the developer to handle unexpected situations that may cause a program or a routine to stop working. Some examples of defensive coding are:
-* Using assertions to check validity of arguments before passing them into functions.
+In Opus, we aspire to attain high quality coding standards by applying the principles of defensive programming. Defensive prgramming principles and techniques enable the developer to handle unexpected situations that may cause a program or a routine to stop working. Some examples of defensive programming are:
+* Using Assertions to check validity of arguments before passing them into functions.
 * Throwing Excpetions when encountering unexpected events.
 * Enforcing 1-to-1 associations
-A good write up on defensive programming can be found [here](http://www.comp.nus.edu.sg/~cs2103/AY1617S2/files/handouts/%5bL7P2%5d%20Putting%20up%20defenses%20to%20protect%20our%20code.pdf) 
+A good write up on defensive programming can be found [here](http://www.comp.nus.edu.sg/~cs2103/AY1617S2/files/handouts/%5bL7P2%5d%20Putting%20up%20defenses%20to%20protect%20our%20code.pdf)
 
 ### 4.2. Testing
 
@@ -345,13 +363,13 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  In the headless mode, GUI tests do not show up on the screen.
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
- 
+
 ### 4.3. Improving test coverage using Coveralls
->Coveralls is a code analytic tool that tracks and analyses test coverage of a project. We have integrated Coveralls into our project to keep track and improve upon the test coverage of the code to deliver a robust and throughly-tested product. 
- 
- The Coveralls dashboard can be accessed [here](https://coveralls.io/github/CS2103JAN2017-W15-B3/main?branch=master). 
+>Coveralls is a code analytic tool that tracks and analyses test coverage of a project. We have integrated Coveralls into our project to keep track and improve upon the test coverage of the code to deliver a robust and throughly-tested product.
+
+ The Coveralls dashboard can be accessed [here](https://coveralls.io/github/CS2103JAN2017-W15-B3/main?branch=master).
  <br><img src="images/coveralls/coveralls_1.png" width="600"><br>
- 
+
  Upon every pull request, Coveralls will run an analysis of the pushed code and produce a report. To view the coverage report, nagivate the to pull request in Github.
 
  1. Click on the Coveralls badge in the pull request to open the coverage report as follows:
@@ -360,13 +378,13 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  <br><img src="images/coveralls/coveralls_3.png" width="600"><br><br>
  Lines that are highlighted in red indicate that there is no test coverage for the code branch.
  <br><img src="images/coveralls/coveralls_4.png" width="600"><br><br>
- 
+
     To maintain the code quality of the product, we strongly insist that all possible code branches are well covered with test cases.
 
 ### 4.4. Troubleshooting tests
 
 #### 4.4.1. Tests fail because NullPointException when AssertionError is expected**
-    This is because Assertions are not enabled for JUnit tests.
+    This is because Assertions are not enabled for JUnit tests. <br>
 1. Enable assertions in JUnit tests as described
    [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
 2. Delete run configurations created when you ran tests earlier.
@@ -422,6 +440,52 @@ In Opus, Gradle is used to managed all dependencies and external libraries. The 
 * [jUnit](http://junit.org/junit4/) `4.12`
 * [TestFx](https://github.com/TestFX/TestFX) `4.0`
 * [Monocle](https://wiki.openjdk.java.net/display/OpenJFX/Monocle) `1.8.0_20`
+
+## 6. Version Control 
+
+### 6.1. Git + GitHub
+
+Opus version control depends highly on Git, and is [hosted on GitHub](https://github.com/CS2103JAN2017-W15-B3/main). We heavily utilised [GitHub's issue tracker](https://github.com/CS2103JAN2017-W15-B3/main/issues) to manage each release's deliverables.
+
+#### 6.1.1. Labels
+
+There are several predefined labels included in our issue tracker:
+
+1. `docs`: assigned if the issue/pull request is related to documentation of the project.
+2. `priority.high/medium/low`: assigned to indicate how important the issue is to the project.
+3. `status.complete/ongoing`: assigned to indicate which PR/tasks are work in progress, and which PRs are completed and ready for review.
+4. `type.bug`: assigned to issues that address a bug in the application.
+5. `type.enhancement`: assigned to issues that improve either the code quality or user experience of the application.
+6. `type.epic`: assigned to issues that comprise of a very large feature to be implemented.
+7. `type.task`: assigned to issues that are misc chores/tasks to be completed.
+8. `ui/storage/logic/model`: assigned to issues that are specific to a certain component of the project. This allows for the developer in charge of the component to provide more detailed feedback.
+9. `tests`: assigned to issues that are related to unit/GUI testing of the code.
+
+Assigning correct labels to your issue will result in faster response from the developer that understands your problem best.
+
+### 6.2. Branching and Workflow
+
+Branch name should always be `kebab-case`, i.e. all small letters with hyphens-replacing-spaces. The branch name should be descriptive of what you are trying to implement/achieve with that branch. **Avoid naming branches after your own name.**
+
+All PRs are to be made to `development` branch, except for special/unique scenarios. Both `master` and `development` branches are **PROTECTED**, i.e. you cannot push directly to the branch. On each release, we will make a PR to the `master` branch. It will only be merged after a sanity check and thumbs up from each team member.
+
+We follow the [GitHub Flow](https://guides.github.com/introduction/flow/). Each pull request (PR) has to be reviewed by the code QA (@gjlam95) and another team member before it can be approved for merging. This is enforced to ensure that code quality is kept up to standard and get all team members on the same page with regards to implementation details.
+
+Code review also encourages learning from each other's mistakes or strengths, benefiting the overall productivity and competency of the team over time.
+
+### 6.3. Commit Messages
+
+The seven rules of writing a great Git commit message (as seen [here](https://chris.beams.io/posts/git-commit/)):
+
+1. Separate subject from body with a blank line
+2. Limit the subject line to 50 characters
+3. Capitalize the subject line
+4. Do not end the subject line with a period
+5. Use the imperative mood in the subject line
+6. Wrap the body at 72 characters
+7. Use the body to explain *what* and *why* vs. *how*
+
+Please follow these strictly when writing commit messages, it makes life easier for all developers who are trying to debug your code by looking through the commit history.
 
 ## Appendix A : Non Functional Requirements
 

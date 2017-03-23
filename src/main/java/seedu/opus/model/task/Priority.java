@@ -8,9 +8,8 @@ import seedu.opus.commons.exceptions.IllegalValueException;
  */
 public class Priority {
 
-    public static enum Type {
+    public static enum Level {
 
-        NONE,
         HIGH,
         MEDIUM,
         LOW;
@@ -24,8 +23,6 @@ public class Priority {
                 return PRIORITY_MEDIUM;
             case LOW:
                 return PRIORITY_LOW;
-            case NONE:
-                return PRIORITY_NONE;
             default:
                 throw new AssertionError();
             }
@@ -39,9 +36,8 @@ public class Priority {
     public static final String PRIORITY_HIGH = "hi";
     public static final String PRIORITY_MEDIUM = "mid";
     public static final String PRIORITY_LOW = "low";
-    public static final String PRIORITY_NONE = "none";
 
-    private final Type value;
+    private final Level value;
 
     /**
      * Validates given priority.
@@ -58,7 +54,7 @@ public class Priority {
         this.value = parseUserInputString(trimmedPriority);
     }
 
-    public Priority(Priority.Type priority) {
+    public Priority(Priority.Level priority) {
         assert priority != null;
         this.value = priority;
     }
@@ -67,36 +63,34 @@ public class Priority {
      * Initialise a Priority with Type value of Type.NONE
      */
     public Priority() {
-        this.value = Type.NONE;
+        this.value = null;
     }
 
     /**
-     * parse a string priority into Priority.Type.
+     * parse a string priority into Priority.Level
      *
      * @param priority
-     * @return Priority.Type value
+     * @return Priority.Level value
      * @throws IllegalValueException
      */
-    public static Priority.Type parseUserInputString(String priority) throws IllegalValueException {
+    public static Priority.Level parseUserInputString(String priority) throws IllegalValueException {
         assert priority != null;
         switch (priority.toLowerCase()) {
         case PRIORITY_HIGH:
-            return Type.HIGH;
+            return Level.HIGH;
         case PRIORITY_MEDIUM:
-            return Type.MEDIUM;
+            return Level.MEDIUM;
         case PRIORITY_LOW:
-            return Type.LOW;
-        case PRIORITY_NONE:
-            return Type.NONE;
+            return Level.LOW;
         default:
             throw new IllegalValueException(MESSAGE_PRIORITY_CONSTRAINTS);
         }
     }
 
-    public static Priority.Type parseXmlString(String priority) throws IllegalValueException {
+    public static Priority.Level parseXmlString(String priority) throws IllegalValueException {
         assert priority != null;
         try {
-            return Type.valueOf(priority);
+            return Level.valueOf(priority);
         } catch (IllegalArgumentException e) {
             throw new IllegalValueException(MESSAGE_PRIORITY_CONSTRAINTS);
         }
@@ -107,8 +101,6 @@ public class Priority {
      */
     public static boolean isValidPriority(String test) {
         switch (test.toLowerCase()) {
-        case PRIORITY_NONE:
-            return true;
         case PRIORITY_HIGH:
             return true;
         case PRIORITY_MEDIUM:
@@ -123,7 +115,7 @@ public class Priority {
     /**
      * @return the current value of the priority
      */
-    public Type getValue() {
+    public Level getValue() {
         return value;
     }
 
