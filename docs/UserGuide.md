@@ -29,11 +29,15 @@ Opus is the ideal task manager for the keyboard loving *(hint: Vim/Emacs)* users
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
-5. Some example commands you can try:
-   * **`list`** : lists all tasks in the main application window
-   * **`add`**` Do laundry` : adds a task named `Do laundry` to the task manager.
-   * **`delete`**` 3` : deletes the 3rd task shown in the current list
-   * **`exit`** : exits the app
+5. Let's have a look at how Jim, an avid Opus fan, utilises the task manager:
+   * **`add`**` Do laundry p/low b/31/12/2017 12:00` : Jim wants to do laundry at noon, so he adds it to the task manager.
+   * **`sort`**` priority` : Jim wants to see the most urgent tasks at the top of his list.
+   * **`mark`**` 1 2` : Jim realises he has completed the 1st and 2nd task so he marks them as completed.
+   * **`delete`**` 3` : Jim realises he does not have to complete the 3rd task so he deletes it from his current list.
+   * **`find`**` laundry` : Jim gets a call from his mum that the laundry must be completed by 3pm so he does a search for it.
+   * **`edit`**` 1 p/hi` : Jim updates the priority of the found laundry task to high.
+   * **`list`** : Jim wants to get back to the overview of his list of tasks.
+   * **`exit`** : Jim is done for the day so he decides to exit the application!
 6. Refer to the [Features](#2-features) section below for details of each command.<br>
 
 
@@ -54,25 +58,34 @@ Format: `help`
 
 ### 2.2. Adding a task: `add`
 
-Adds a person to the task manager<br>
+Adds a person to the task manager.<br>
 Format: `add NAME [n/NOTES] [s/STATUS] [b/STARTIME] [e/ENDTIME] [p/PRIORITY] [t/TAG]...`
 
+> * Task can be an event
 > * Task can have notes
-> * Task can have a deadline
-> * Task can have an event
 > * Task can have a a status
-> * Task can have a priority ranking from 1 - 3
+> * Task can have a deadline
+> * Task can have a priority ranking of hi, mid, low
 > * Task can have any number of tags (including 0)
 
 Examples:
 
 * `add Do laundry`
-* `add Finish v0.0 documentation n/Urgent s/Incomplete b/28/02/2017 12:00 p/1 t/CS2103T`
+* `add Finish v0.0 documentation n/Urgent s/incomplete b/28/02/2017 12:00 e/29/02/2017 23:59 p/hi t/CS2103T`
 
 ### 2.3. Sort tasks : `sort` (Work in progress)
 
 Sorts the list of tasks currently being shown according to the parameters.<br>
 Format: `sort [s/STATUS] [b/STARTIME] [e/ENDTIME] [p/PRIORITY]...`
+
+> * At least one of the optional fields must be provided.
+
+Examples:
+
+* `sort status` <br>
+Sorts the list of tasks according to status
+* `sort status priority`<br>
+Sorts the list of tasks according to status, followed by priority.
 
 ### 2.4. Editing a task : `edit`
 
@@ -106,7 +119,7 @@ Examples:
 * `mark 3 4 5`<br>
 Marks tasks at index 3, 4 and 5 as complete.
 
-### 2.6. Unmark task (Work in progress)
+### 2.6. Unmark task
 
 Marks task as incomplete.<br>
 Format: `unmark INDEX...`
@@ -139,14 +152,14 @@ Set the start time as 1pm on May 12, 2017 and the end time as 3pm on May 12, 201
 Undo the latest command.<br>
 Format: `undo`
 
-> * Reverts the change done by the command that was run previously.
+> * Reverts the change done by the previous command.
 
 ### 2.9. Redo
 
-Reverts the previous undo.<br>
+Reverts the previous undo action.<br>
 Format: `redo`
 
-> * Reverts the change done by the previous undo.
+> * Reverts the change done by the previous undo action.
 
 ### 2.10. Find
 
