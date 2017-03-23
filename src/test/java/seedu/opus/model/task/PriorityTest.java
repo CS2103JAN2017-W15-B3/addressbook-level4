@@ -23,7 +23,6 @@ public class PriorityTest {
         assertFalse(Priority.isValidPriority(" ")); // spaces only
 
         // valid priorities
-        assertTrue(Priority.isValidPriority("none")); // no priority
         assertTrue(Priority.isValidPriority("hi")); // high priority
         assertTrue(Priority.isValidPriority("mid")); // medium priority
         assertTrue(Priority.isValidPriority("low")); // low priority
@@ -37,7 +36,6 @@ public class PriorityTest {
 
     @Test
     public void parseValidUserInputString() throws IllegalValueException {
-        assertEquals(Priority.parseUserInputString("none"), Priority.Type.NONE);
         assertEquals(Priority.parseUserInputString("hi"), Priority.Type.HIGH);
         assertEquals(Priority.parseUserInputString("mid"), Priority.Type.MEDIUM);
         assertEquals(Priority.parseUserInputString("low"), Priority.Type.LOW);
@@ -50,7 +48,6 @@ public class PriorityTest {
 
     @Test
     public void toUserInputString() {
-        assertEquals(Type.NONE.toString(), Priority.PRIORITY_NONE);
         assertEquals(Type.HIGH.toString(), Priority.PRIORITY_HIGH);
         assertEquals(Type.MEDIUM.toString(), Priority.PRIORITY_MEDIUM);
         assertEquals(Type.LOW.toString(), Priority.PRIORITY_LOW);
@@ -58,7 +55,6 @@ public class PriorityTest {
 
     @Test
     public void parseValidXmlString() throws IllegalValueException {
-        assertEquals(Priority.parseXmlString("NONE"), Priority.Type.NONE);
         assertEquals(Priority.parseXmlString("HIGH"), Priority.Type.HIGH);
         assertEquals(Priority.parseXmlString("MEDIUM"), Priority.Type.MEDIUM);
         assertEquals(Priority.parseXmlString("LOW"), Priority.Type.LOW);
