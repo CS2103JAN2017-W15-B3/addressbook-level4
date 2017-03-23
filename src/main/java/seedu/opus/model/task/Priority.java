@@ -101,8 +101,6 @@ public class Priority {
      */
     public static boolean isValidPriority(String test) {
         switch (test.toLowerCase()) {
-        case PRIORITY_NONE:
-            return true;
         case PRIORITY_HIGH:
             return true;
         case PRIORITY_MEDIUM:
