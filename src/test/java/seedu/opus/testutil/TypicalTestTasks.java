@@ -10,9 +10,9 @@ import seedu.opus.model.task.UniqueTaskList;
  */
 public class TypicalTestTasks {
 
-    public TestTask laundry, dishes, quiz, grocery, reflection, consultation,
-                        payment, submission, application, taskWithoutPriority,
-                        taskWithoutNote, taskWithoutDeadline;
+    public TestTask laundry, quiz, payment, reflection, dishes, consultation,
+                        grocery, submission, application, taskWithoutDeadline,
+                        taskWithoutNote, taskWithoutPriority;
 
     public TypicalTestTasks() {
         try {
@@ -71,7 +71,7 @@ public class TypicalTestTasks {
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{laundry, dishes, quiz, grocery, reflection, consultation, payment};
+        return new TestTask[]{laundry, quiz, payment, reflection, dishes, consultation, grocery};
     }
 
     public TaskManager getTypicalTaskManager() {

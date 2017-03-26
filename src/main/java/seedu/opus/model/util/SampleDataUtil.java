@@ -21,7 +21,7 @@ public class SampleDataUtil {
             return new Task[] {
                 new Task(new Name("Finalise CS2101 Report"), new Priority("hi"), new Status("incomplete"),
                     new Note("User Guide and Developer Guide"),
-                    new DateTime(currentDate.minusDays(2)), new DateTime(currentDate.minusDays(1)),
+                    new DateTime(currentDate.plusDays(1)), new DateTime(currentDate.plusDays(2)),
                     new UniqueTagList("school")),
                 new Task(new Name("Buy a new laptop"), new Priority("mid"), new Status("incomplete"),
                     new Note("Avoid HP. Because, reasons."),

@@ -8,6 +8,11 @@ import javafx.collections.ObservableList;
 import seedu.opus.commons.core.UnmodifiableObservableList;
 import seedu.opus.commons.exceptions.DuplicateDataException;
 import seedu.opus.commons.util.CollectionUtil;
+import seedu.opus.model.comparators.EndTimeComparator;
+import seedu.opus.model.comparators.PriorityComparator;
+import seedu.opus.model.comparators.StartTimeComparator;
+import seedu.opus.model.comparators.StatusComparator;
+import seedu.opus.model.comparators.TaskComparator;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
@@ -97,14 +102,23 @@ public class UniqueTaskList implements Iterable<Task> {
 
     public UnmodifiableObservableList<Task> asSortedList(String keyword) {
         switch (keyword) {
+        case "all":
+            FXCollections.sort(internalList, new TaskComparator());
+            break;
+        case "status":
+            FXCollections.sort(internalList, new StatusComparator());
+            break;
         case "priority":
             FXCollections.sort(internalList, new PriorityComparator());
             break;
-        case "deadline":
+        case "start":
+            FXCollections.sort(internalList, new StartTimeComparator());
+            break;
+        case "end":
             FXCollections.sort(internalList, new EndTimeComparator());
             break;
         default:
-            break;
+            throw new AssertionError();
         }
         return new UnmodifiableObservableList<>(internalList);
     }

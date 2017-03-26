@@ -1,6 +1,8 @@
-package seedu.opus.model.task;
+package seedu.opus.model.comparators;
 
 import java.util.Comparator;
+
+import seedu.opus.model.task.ReadOnlyTask;
 
 public class PriorityComparator implements Comparator<ReadOnlyTask> {
     public int compare(ReadOnlyTask p1, ReadOnlyTask p2) {
@@ -11,7 +13,7 @@ public class PriorityComparator implements Comparator<ReadOnlyTask> {
         } else if (oneHasPriority) {
             return -1;
         } else {
-            return 0;
+            return 1;
         }
     }
 }
