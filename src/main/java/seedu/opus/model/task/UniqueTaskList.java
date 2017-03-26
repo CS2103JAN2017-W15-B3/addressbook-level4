@@ -1,5 +1,6 @@
 package seedu.opus.model.task;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -8,6 +9,11 @@ import javafx.collections.ObservableList;
 import seedu.opus.commons.core.UnmodifiableObservableList;
 import seedu.opus.commons.exceptions.DuplicateDataException;
 import seedu.opus.commons.util.CollectionUtil;
+import seedu.opus.model.comparators.EndTimeComparator;
+import seedu.opus.model.comparators.PriorityComparator;
+import seedu.opus.model.comparators.StartTimeComparator;
+import seedu.opus.model.comparators.StatusComparator;
+import seedu.opus.model.comparators.TaskComparator;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
