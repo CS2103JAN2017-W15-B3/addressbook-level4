@@ -4,10 +4,10 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import seedu.address.model.TaskManager;
-import seedu.address.model.task.Task;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.testutil.TestUtil;
+import seedu.opus.model.TaskManager;
+import seedu.opus.model.task.Task;
+import seedu.opus.model.util.SampleDataUtil;
+import seedu.opus.testutil.TestUtil;
 
 public class SampleDataTest extends TaskManagerGuiTest {
     @Override

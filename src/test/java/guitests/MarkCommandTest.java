@@ -5,9 +5,9 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import guitests.guihandles.TaskCardHandle;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.testutil.TaskBuilder;
-import seedu.address.testutil.TestTask;
+import seedu.opus.logic.commands.EditCommand;
+import seedu.opus.testutil.TaskBuilder;
+import seedu.opus.testutil.TestTask;
 
 public class MarkCommandTest extends TaskManagerGuiTest {
 
