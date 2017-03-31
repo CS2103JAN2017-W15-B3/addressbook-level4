@@ -662,7 +662,7 @@ public class LogicManagerTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("longertag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, priority, status, note, startTime, endTime, tags);
+            return new Task(name, null, priority, status, note, startTime, endTime, tags);
         }
 
         /**
@@ -675,12 +675,14 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
+                    Integer.toString(seed),
                     generatePriorityWithSeed(seed),
                     new Status("incomplete"),
                     new Note("House of " + seed),
                     new DateTime("12/12/" + (2017 + seed) + " 12:00"),
                     new DateTime("12/12/" + (2017 + seed) + " 13:00"),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+                    new UniqueTagList(new Tag("tag" + Math.abs(seed)),
+                    new Tag("tag" + Math.abs(seed + 1)))
             );
         }
 
@@ -790,6 +792,7 @@ public class LogicManagerTest {
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
+                    "1",
                     new Priority("hi"),
                     new Status("incomplete"),
                     new Note("House of 1"),
@@ -806,6 +809,7 @@ public class LogicManagerTest {
         private Task generateTaskWithStartTime(String startTime) throws Exception {
             return new Task(
                     new Name("Finish assignment"),
+                    "2",
                     new Priority("hi"),
                     new Status("incomplete"),
                     new Note("House of 1"),
@@ -821,6 +825,7 @@ public class LogicManagerTest {
         private Task generateTaskWithEndTime(String endTime) throws Exception {
             return new Task(
                     new Name("Finish assignment"),
+                    "3",
                     new Priority("hi"),
                     new Status("incomplete"),
                     new Note("House of 1"),
@@ -836,6 +841,7 @@ public class LogicManagerTest {
         private Task generateTaskWithPriority(String priority) throws Exception {
             return new Task(
                     new Name("Finish assignment"),
+                    "4",
                     new Priority(priority),
                     new Status("incomplete"),
                     new Note("House of 1"),
@@ -851,6 +857,7 @@ public class LogicManagerTest {
         private Task generateTaskWithStatus(String status) throws Exception {
             return new Task(
                     new Name("Finish assignment"),
+                    "5",
                     new Priority("hi"),
                     new Status(status),
                     new Note("House of 1"),
