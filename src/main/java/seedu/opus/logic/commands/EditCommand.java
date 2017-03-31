@@ -105,7 +105,7 @@ public class EditCommand extends Command {
                 .orElse(null);
         UniqueTagList updatedTags = editTaskDescriptor.getTags().orElseGet(taskToEdit::getTags);
 
-        return new Task(updatedName, updatedPriority, updatedStatus, updatedNote,
+        return new Task(updatedName, taskToEdit.getId(), updatedPriority, updatedStatus, updatedNote,
                 updatedStartTime, updatedEndTime, updatedTags);
     }
 
