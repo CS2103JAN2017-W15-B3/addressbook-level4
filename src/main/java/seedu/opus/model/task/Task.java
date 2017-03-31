@@ -29,6 +29,7 @@ public class Task implements ReadOnlyTask {
     /**
      * Accepts null values for priority, note and deadline only.
      * @param name
+     * @param id
      * @param priority
      * @param status
      * @param note
@@ -36,6 +37,35 @@ public class Task implements ReadOnlyTask {
      * @param tags
      */
     public Task(Name name, String id, Priority priority, Status status,
+            Note note, DateTime startTime, DateTime endTime, UniqueTagList tags) {
+        //@@author A0124368A
+        // Name should never be null because it is required for each task.
+        // Status should never be null because every created task should be marked as incomplete.
+        // Tags should never be null because zero tags is represented as an empty list.
+        assert !CollectionUtil.isAnyNull(name, id, status, tags);
+        //@@author
+
+        this.name = name;
+        this.id = id;
+        this.priority = priority;
+        this.status = status;
+        this.note = note;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+    }
+
+    /**
+     * Overloaded Constructor for creating new Tasks without id
+     * @param name
+     * @param priority
+     * @param status
+     * @param note
+     * @param startTime
+     * @param endTime
+     * @param tags
+     */
+    public Task(Name name, Priority priority, Status status,
             Note note, DateTime startTime, DateTime endTime, UniqueTagList tags) {
         //@@author A0124368A
         // Name should never be null because it is required for each task.
@@ -51,12 +81,8 @@ public class Task implements ReadOnlyTask {
         this.startTime = startTime;
         this.endTime = endTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-        if (id != null) {
-            this.id = id;
-        } else {
-            String uuid = UUID.randomUUID().toString();
-            this.id = uuid.replaceAll("-", ""); //remove hyphens from UUID
-        }
+        String uuid = UUID.randomUUID().toString();
+        this.id = uuid.replaceAll("-", ""); //remove hyphens from UUID
     }
 
     /**
