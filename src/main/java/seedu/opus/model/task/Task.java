@@ -3,6 +3,7 @@ package seedu.opus.model.task;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 import seedu.opus.commons.exceptions.IllegalValueException;
 import seedu.opus.commons.util.CollectionUtil;
@@ -16,6 +17,7 @@ import seedu.opus.model.tag.UniqueTagList;
 public class Task implements ReadOnlyTask {
 
     private Name name;
+    private String id;
     private Priority priority;
     private Status status;
     private Note note;
@@ -33,7 +35,7 @@ public class Task implements ReadOnlyTask {
      * @param deadline
      * @param tags
      */
-    public Task(Name name, Priority priority, Status status,
+    public Task(Name name, String id, Priority priority, Status status,
             Note note, DateTime startTime, DateTime endTime, UniqueTagList tags) {
         //@@author A0124368A
         // Name should never be null because it is required for each task.
@@ -49,6 +51,12 @@ public class Task implements ReadOnlyTask {
         this.startTime = startTime;
         this.endTime = endTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        if (id != null) {
+            this.id = id;
+        } else {
+            String uuid = UUID.randomUUID().toString();
+            this.id = uuid.replaceAll("-", ""); //remove hyphens from UUID
+        }
     }
 
     /**
@@ -56,9 +64,10 @@ public class Task implements ReadOnlyTask {
      */
     public Task(ReadOnlyTask source) {
         //@@author A0124368A
-        this(source.getName(), source.getPriority().orElse(null), source.getStatus(),
-                source.getNote().orElse(null), source.getStartTime().orElse(null),
-                source.getEndTime().orElse(null), source.getTags());
+        this(source.getName(), source.getId(), source.getPriority().orElse(null),
+                source.getStatus(), source.getNote().orElse(null),
+                source.getStartTime().orElse(null), source.getEndTime().orElse(null),
+                source.getTags());
         //@@author
     }
 
@@ -198,6 +207,11 @@ public class Task implements ReadOnlyTask {
     @Override
     public String toString() {
         return getAsText();
+    }
+
+    @Override
+    public String getId() {
+        return id;
     }
 
 }
