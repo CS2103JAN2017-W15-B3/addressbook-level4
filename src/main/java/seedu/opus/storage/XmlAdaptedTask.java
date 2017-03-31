@@ -24,6 +24,8 @@ public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private String name;
+    @XmlElement(required = true)
+    private String id;
     @XmlElement(required = false)
     private String priority;
     @XmlElement(required = true)
@@ -52,6 +54,7 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
+        id = source.getId();
         priority = source.getPriority().isPresent() ? source.getPriority().get().getValue().name() : null;
         status = source.getStatus().toString();
         note = source.getNote().isPresent() ? source.getNote().get().toString() : null;
@@ -74,12 +77,13 @@ public class XmlAdaptedTask {
             taskTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
+        final String id = this.id;
         Priority priority = (this.priority != null) ? new Priority(Priority.valueOf(this.priority)) : null;
         final Status status = new Status(this.status);
         final Note note = (this.note != null) ? new Note(this.note) : null;
         final DateTime startTime = (this.startTime != null) ? new DateTime(this.startTime) : null;
         final DateTime endTime = (this.endTime != null) ? new DateTime(this.endTime) : null;
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, priority, status, note, startTime, endTime, tags);
+        return new Task(name, id, priority, status, note, startTime, endTime, tags);
     }
 }

@@ -32,6 +32,11 @@ public class TaskBuilder {
         return this;
     }
 
+    public TaskBuilder withId(String id) throws IllegalValueException {
+        this.task.setId(id);
+        return this;
+    }
+
     public TaskBuilder withTags(String ... tags) throws IllegalValueException {
         task.setTags(new UniqueTagList());
         for (String tag: tags) {

@@ -76,23 +76,23 @@ public class TestUtil {
         try {
             //CHECKSTYLE.OFF: LineLength
             return new Task[]{
-                new Task(new Name("Ali Muster"), new Priority("hi"), new Status("incomplete"), new Note("4th street"),
+                new Task(new Name("Ali Muster"), "1", new Priority("hi"), new Status("incomplete"), new Note("4th street"),
                         new DateTime("05/05/2017 12:00"), new DateTime("05/05/2017 13:00"), new UniqueTagList()),
-                new Task(new Name("Boris Mueller"), new Priority("mid"), new Status("incomplete"), new Note("81th street"),
+                new Task(new Name("Boris Mueller"), "2", new Priority("mid"), new Status("incomplete"), new Note("81th street"),
                         new DateTime("06/05/2017 12:00"), new DateTime("05/05/2017 13:00"), new UniqueTagList()),
-                new Task(new Name("Carl Kurz"), new Priority("low"), new Status("incomplete"), new Note("wall street"),
+                new Task(new Name("Carl Kurz"), "3", new Priority("low"), new Status("incomplete"), new Note("wall street"),
                         new DateTime("07/06/2017 12:00"), new DateTime("05/05/2017 13:00"), new UniqueTagList()),
-                new Task(new Name("Elle Meyer"), new Priority("hi"), new Status("incomplete"), new Note("michegan ave"),
+                new Task(new Name("Elle Meyer"), "4", new Priority("hi"), new Status("incomplete"), new Note("michegan ave"),
                         new DateTime("08/05/2017 12:00"), new DateTime("05/05/2017 13:00"), new UniqueTagList()),
-                new Task(new Name("Daniel Meier"), new Priority("mid"), new Status("incomplete"), new Note("10th street"),
+                new Task(new Name("Daniel Meier"), "5", new Priority("mid"), new Status("incomplete"), new Note("10th street"),
                         new DateTime("08/05/2017 12:00"), new DateTime("05/05/2017 13:00"), new UniqueTagList()),
-                new Task(new Name("Ida Mueller"), new Priority("hi"), new Status("incomplete"), new Note("chicago ave"),
+                new Task(new Name("Ida Mueller"), "6", new Priority("hi"), new Status("incomplete"), new Note("chicago ave"),
                         new DateTime("12/06/2017 12:00"), new DateTime("05/05/2017 13:00"), new UniqueTagList()),
-                new Task(new Name("Hoon Meier"), new Priority("mid"), new Status("incomplete"), new Note("little india"),
+                new Task(new Name("Hoon Meier"), "7", new Priority("mid"), new Status("incomplete"), new Note("little india"),
                         new DateTime("12/06/2017 12:00"), new DateTime("05/05/2017 13:00"), new UniqueTagList()),
-                new Task(new Name("Fiona Kunz"), new Priority("mid"), new Status("incomplete"), new Note("little tokyo"),
+                new Task(new Name("Fiona Kunz"), "8", new Priority("mid"), new Status("incomplete"), new Note("little tokyo"),
                         new DateTime("12/05/2017 12:00"), new DateTime("05/05/2017 13:00"), new UniqueTagList()),
-                new Task(new Name("George Best"), new Priority("low"), new Status("incomplete"), new Note("4th street"),
+                new Task(new Name("George Best"), "9", new Priority("low"), new Status("incomplete"), new Note("4th street"),
                         new DateTime("12/05/2017 12:00"), new DateTime("05/05/2017 13:00"), new UniqueTagList())
             };
             //CHECKSTYLE.ON: LineLength
