@@ -17,6 +17,7 @@ public interface ReadOnlyTask {
     Optional<Note> getNote();
     Optional<DateTime> getStartTime();
     Optional<DateTime> getEndTime();
+    String getId();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
