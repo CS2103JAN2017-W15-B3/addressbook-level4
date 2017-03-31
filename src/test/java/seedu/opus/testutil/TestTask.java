@@ -17,6 +17,7 @@ import seedu.opus.model.task.Status;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
+    private String id;
     private Note note;
     private Status status;
     private Priority priority;
@@ -34,6 +35,7 @@ public class TestTask implements ReadOnlyTask {
     public TestTask(TestTask taskToCopy) {
         //@@author A0124368A
         this.name = taskToCopy.getName();
+        this.id = taskToCopy.getId();
         this.priority = taskToCopy.getPriority().orElse(null);
         this.status = taskToCopy.getStatus();
         this.note = taskToCopy.getNote().orElse(null);
@@ -41,6 +43,10 @@ public class TestTask implements ReadOnlyTask {
         this.endTime = taskToCopy.getEndTime().orElse(null);
         this.tags = taskToCopy.getTags();
         //@@author A0124368A
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setName(Name name) {
@@ -142,4 +148,9 @@ public class TestTask implements ReadOnlyTask {
         return sb.toString();
     }
     //@@author
+
+    @Override
+    public String getId() {
+        return id;
+    }
 }
