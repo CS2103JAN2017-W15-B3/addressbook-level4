@@ -66,6 +66,13 @@ public class AddCommand extends Command {
                 throw new CommandException(MESSAGE_INVALID_EVENT);
             }
             model.addTask(toAdd);
+
+            // Scroll to the newly added task
+            int taskIndex = model.getTaskIndex(toAdd) + 1;
+            SelectCommand select = new SelectCommand(taskIndex);
+            select.setData(model);
+            select.execute();
+
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);

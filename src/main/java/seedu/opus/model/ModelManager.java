@@ -121,6 +121,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
     //@@author
 
+    public int getTaskIndex(ReadOnlyTask task) {
+        return filteredTasks.indexOf(task);
+    }
+
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);

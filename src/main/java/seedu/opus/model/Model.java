@@ -41,6 +41,9 @@ public interface Model {
     /** Sorts the filtered task list to show all tasks */
     void sortList(String keyword);
 
+    /** gets the index of the task in the filtered list */
+    int getTaskIndex(ReadOnlyTask task);
+
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
 

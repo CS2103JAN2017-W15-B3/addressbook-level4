@@ -32,7 +32,7 @@ public class Priority {
 
     //@@author A0148087W
     public static final String MESSAGE_PRIORITY_CONSTRAINTS = "Task priority can only take specific string "
-            + "values hi, mid, low, none.";
+            + "values hi, mid or low";
     public static final String PRIORITY_VALIDATION_REGEX = "[^\\s].*";
     public static final String PRIORITY_HIGH = "hi";
     public static final String PRIORITY_MEDIUM = "mid";
